@@ -1,0 +1,18 @@
+.nav {
+    grid-area: nav;
+    background-color: lightpink;
+    padding: 20px;
+}
+
+.item a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: deeppink;
+}
+
+.active {
+    font-style: italic;
+}

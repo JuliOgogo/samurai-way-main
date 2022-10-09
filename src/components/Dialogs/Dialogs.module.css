@@ -1,0 +1,14 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    padding: 20px;
+}
+
+.dialogItem a {
+    color: black;
+    text-decoration: none;
+}
+
+.dialogsItems .activeItem a {
+    color: orangered;
+}
