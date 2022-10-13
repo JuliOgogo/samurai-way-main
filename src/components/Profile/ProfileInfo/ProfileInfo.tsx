@@ -2,6 +2,7 @@ import React from "react";
 import s from './ProfileInfo.module.css';
 
 export type ProfileInfoPropsType = {}
+
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     return <div>
         <img
