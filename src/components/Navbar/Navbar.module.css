@@ -13,6 +13,7 @@
     color: deeppink;
 }
 
-.active {
-    font-style: italic;
+.friends {
+    margin-top: 50px;
+    font-size: x-large;
 }
