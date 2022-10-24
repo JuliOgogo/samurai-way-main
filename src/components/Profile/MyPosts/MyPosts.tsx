@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import s from './MyPosts.module.css';
 import Post, {PostPropsType} from "./Post/Post";
 
@@ -9,6 +9,13 @@ export type MyPostsPropsType = {
 const MyPosts = (props: MyPostsPropsType) => {
 
     const postsElements = props.posts.map(p => <Post message={p.message} likesCounter={p.likesCounter}/>)
+    const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
+
+    const addPost = () => {
+        const text = newPostElement.current?.value
+        alert(text)
+    }
+
 
     return (
         <div className={s.postsBlock}>
@@ -17,10 +24,10 @@ const MyPosts = (props: MyPostsPropsType) => {
             </div>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add Post</button>
+                    <button onClick={addPost}>Add Post</button>
                 </div>
             </div>
             <div className={s.posts}>
