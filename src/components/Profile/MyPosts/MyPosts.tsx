@@ -4,6 +4,7 @@ import Post, {PostPropsType} from "./Post/Post";
 
 export type MyPostsPropsType = {
     posts: PostPropsType[]
+    addPost: (post: any) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -13,9 +14,8 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const addPost = () => {
         const text = newPostElement.current?.value
-        alert(text)
+        props.addPost(text)
     }
-
 
     return (
         <div className={s.postsBlock}>

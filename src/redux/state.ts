@@ -29,6 +29,15 @@ export const state: StateType = {
     }
 }
 
+export const addPost = (post: string) => {
+    const newPost: PostType = {
+        id: 5,
+        message: post,
+        likesCounter: 0
+    }
+    state.profilePage.posts.push(newPost)
+}
+
 // types
 export type StateType = {
     dialogsPage: DialogsPageStateType
