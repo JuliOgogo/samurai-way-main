@@ -20,7 +20,8 @@ export const state: StateType = {
             {id: 1, message: 'Hi, how are you?', likesCounter: 11},
             {id: 2, message: 'It\'s my first post', likesCounter: 54},
             {id: 3, message: 'I\'m learning React', likesCounter: 3},
-        ]
+        ],
+        newPostText: 'blablacar'
     },
     sidebar: {
         friends: [
@@ -31,13 +32,19 @@ export const state: StateType = {
     }
 }
 
-export const addPost = (post: string) => {
+export const addPost = () => {
     const newPost: PostType = {
         id: 5,
-        message: post,
+        message: state.profilePage.newPostText,
         likesCounter: 0
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPost = (text: string) => {
+    state.profilePage.newPostText = text
     rerenderEntireTree(state)
 }
 
@@ -53,6 +60,7 @@ export type DialogsPageStateType = {
 }
 export type ProfilePageStateType = {
     posts: PostType[]
+    newPostText: string
 }
 export type SidebarStateType = {
     friends: DialogType[]
