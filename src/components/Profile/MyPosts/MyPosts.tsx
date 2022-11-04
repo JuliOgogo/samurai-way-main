@@ -14,11 +14,11 @@ const MyPosts: React.FC<MyPostsPropsType> = ({posts, addPost, newPostText, updat
     const postsElements = posts.map(p => <Post message={p.message} likesCounter={p.likesCounter}/>)
     const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
-    const addPostHandler = () => {
+    const onClickHandler = () => {
         addPost();
     }
 
-    const updateNewPostHandler = () => {
+    const onChangeHandler = () => {
         let text = newPostElement.current?.value;
         updateNewPost(text ? text : '')
     }
@@ -32,10 +32,10 @@ const MyPosts: React.FC<MyPostsPropsType> = ({posts, addPost, newPostText, updat
                 <div>
                     <textarea ref={newPostElement}
                               value={newPostText}
-                              onChange={updateNewPostHandler}/>
+                              onChange={onChangeHandler}/>
                 </div>
                 <div>
-                    <button onClick={addPostHandler}>Add Post</button>
+                    <button onClick={onClickHandler}>Add Post</button>
                 </div>
             </div>
             <div className={s.posts}>

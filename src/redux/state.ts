@@ -13,7 +13,8 @@ export const state: StateType = {
             {id: 1, message: 'Hello!'},
             {id: 2, message: 'How are you?'},
             {id: 3, message: 'Lol :D'},
-        ]
+        ],
+        newMessageText: 'new message'
     },
     profilePage: {
         posts: [
@@ -21,7 +22,7 @@ export const state: StateType = {
             {id: 2, message: 'It\'s my first post', likesCounter: 54},
             {id: 3, message: 'I\'m learning React', likesCounter: 3},
         ],
-        newPostText: 'blablacar'
+        newPostText: 'new post text'
     },
     sidebar: {
         friends: [
@@ -48,6 +49,21 @@ export const updateNewPost = (text: string) => {
     rerenderEntireTree(state)
 }
 
+export const addMessage = () => {
+    const newMessage: MessageType = {
+        id: 5,
+        message: state.dialogsPage.newMessageText,
+    }
+    state.dialogsPage.messages.push(newMessage)
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewMessage = (text: string) => {
+    state.dialogsPage.newMessageText = text
+    rerenderEntireTree(state)
+}
+
 // types
 export type StateType = {
     dialogsPage: DialogsPageStateType
@@ -57,6 +73,7 @@ export type StateType = {
 export type DialogsPageStateType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    newMessageText: string
 }
 export type ProfilePageStateType = {
     posts: PostType[]

@@ -15,22 +15,32 @@ export type AppPropsType = {
     state: StateType
     addPost: () => void
     updateNewPost: (text: string) => void
+    addMessage: (text: string) => void
+    updateNewMessage: (text: string) => void
 }
 
-const App = (props: AppPropsType) => {
+const App: React.FC<AppPropsType> = ({
+                                         state,
+                                         addPost,
+                                         updateNewPost,
+                                         addMessage,
+                                         updateNewMessage
+                                     }) => {
     return (
         <div className="app-wrapper">
             <Header/>
-            <Navbar state={props.state.sidebar}/>
+            <Navbar state={state.sidebar}/>
             <div className="app-wrapper-content">
-                <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>}/>
-                <Route path='/profile' render={() => <Profile profilePageState={props.state.profilePage}
-                                                              addPost={props.addPost}
-                                                              updateNewPost={props.updateNewPost}/>}/>
+                <Route path='/dialogs' render={() => <Dialogs dialogsPageState={state.dialogsPage}
+                                                              addMessage={addMessage}
+                                                              updateNewMessage={updateNewMessage}/>}/>
+                <Route path='/profile' render={() => <Profile profilePageState={state.profilePage}
+                                                              addPost={addPost}
+                                                              updateNewPost={updateNewPost}/>}/>
                 <Route path='/news' render={News}/>
                 <Route path='/music' render={Music}/>
                 <Route path='/settings' render={Settings}/>
-                <Route path='/friends' render={() => <Friends state={props.state.sidebar.friends}/>}/>
+                <Route path='/friends' render={() => <Friends state={state.sidebar.friends}/>}/>
             </div>
         </div>
     );
