@@ -1,5 +1,3 @@
-import {rerenderEntireTree} from "../render";
-
 export const state: StateType = {
     dialogsPage: {
         dialogs: [
@@ -62,6 +60,14 @@ export const addMessage = () => {
 export const updateNewMessage = (text: string) => {
     state.dialogsPage.newMessageText = text
     rerenderEntireTree(state)
+}
+
+let rerenderEntireTree = (state: StateType) => {
+    console.log(state)
+}
+
+export const subscriber = (observer: (state: StateType) => void) => {
+    rerenderEntireTree = observer
 }
 
 // types
