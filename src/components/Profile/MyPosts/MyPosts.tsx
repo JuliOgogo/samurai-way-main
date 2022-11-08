@@ -5,22 +5,21 @@ import Post, {PostPropsType} from "./Post/Post";
 export type MyPostsPropsType = {
     posts: PostPropsType[]
     newPostText: string
-    addPost: () => void
-    updateNewPost: (text: string) => void
+    dispatch: (action: any) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = ({posts, addPost, newPostText, updateNewPost}) => {
+const MyPosts: React.FC<MyPostsPropsType> = ({posts, newPostText, dispatch}) => {
 
     const postsElements = posts.map(p => <Post message={p.message} likesCounter={p.likesCounter}/>)
     const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const onClickHandler = () => {
-        addPost();
+        dispatch({type: 'ADD-POST'})
     }
 
     const onChangeHandler = () => {
         let text = newPostElement.current?.value;
-        updateNewPost(text ? text : '')
+        dispatch({type: 'UPDATE-NEW-POST', text})
     }
 
     return (

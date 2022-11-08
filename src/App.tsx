@@ -13,18 +13,12 @@ import {Friends} from "./components/Friends/Friends";
 
 export type AppPropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPost: (text: string) => void
-    addMessage: (text: string) => void
-    updateNewMessage: (text: string) => void
+    dispatch: (action: any) => void
 }
 
 const App: React.FC<AppPropsType> = ({
                                          state,
-                                         addPost,
-                                         updateNewPost,
-                                         addMessage,
-                                         updateNewMessage
+                                         dispatch
                                      }) => {
     return (
         <div className="app-wrapper">
@@ -32,11 +26,9 @@ const App: React.FC<AppPropsType> = ({
             <Navbar state={store._state.sidebar}/>
             <div className="app-wrapper-content">
                 <Route path='/dialogs' render={() => <Dialogs dialogsPageState={state.dialogsPage}
-                                                              addMessage={addMessage}
-                                                              updateNewMessage={updateNewMessage}/>}/>
+                                                              dispatch={dispatch}/>}/>
                 <Route path='/profile' render={() => <Profile profilePageState={state.profilePage}
-                                                              addPost={addPost}
-                                                              updateNewPost={updateNewPost}/>}/>
+                                                              dispatch={dispatch}/>}/>
                 <Route path='/news' render={News}/>
                 <Route path='/music' render={Music}/>
                 <Route path='/settings' render={Settings}/>
