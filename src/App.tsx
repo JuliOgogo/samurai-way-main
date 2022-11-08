@@ -8,12 +8,12 @@ import {Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StateType, store} from "./redux/state";
+import {ActionType, StateType, store} from "./redux/state";
 import {Friends} from "./components/Friends/Friends";
 
 export type AppPropsType = {
     state: StateType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 const App: React.FC<AppPropsType> = ({

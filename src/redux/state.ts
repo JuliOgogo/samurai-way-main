@@ -40,7 +40,7 @@ export let store: StoreType = {
     getState() {
         return this._state
     },
-    dispatch(action) {
+    dispatch(action: ActionType) {
         if (action.type === 'ADD-POST') {
             const newPost: PostType = {
                 id: 5,
@@ -68,13 +68,26 @@ export let store: StoreType = {
     }
 }
 
+// action creators
+export const addPostAC = () => ({type: 'ADD-POST'}) as const
+export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST', text}) as const
+export const addMessageAC = () => ({type: 'ADD-MESSAGE'}) as const
+export const updateNewMessageAC = (text: string) => ({type: 'UPDATE-NEW-MESSAGE', text}) as const
+
+// action creators types
+export type ActionType =
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostAC> |
+    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof updateNewMessageAC>
+
 // types
 export type StoreType = {
     _state: StateType
     _callSubscriber: (state: StateType) => void
     subscriber: (observer: (store: StateType) => void) => void
     getState: () => StateType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 export type StateType = {
     dialogsPage: DialogsPageStateType

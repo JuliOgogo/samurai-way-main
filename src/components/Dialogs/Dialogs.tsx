@@ -2,11 +2,11 @@ import React, {RefObject} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
-import {DialogsPageStateType} from "../../redux/state";
+import {ActionType, addMessageAC, DialogsPageStateType, updateNewMessageAC} from "../../redux/state";
 
 export type DialogsPropsType = {
     dialogsPageState: DialogsPageStateType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = ({dialogsPageState, dispatch}) => {
@@ -17,12 +17,12 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsPageState, dispatch}) => {
     const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const onClickHandler = () => {
-        dispatch({type: 'ADD-MESSAGE'})
+        dispatch(addMessageAC())
     }
 
     const onChangeHandler = () => {
         const text = newMessageElement.current?.value
-        dispatch({type: 'UPDATE-NEW-MESSAGE', text})
+        dispatch(updateNewMessageAC(text ? text : ''))
     }
 
     return (
@@ -43,7 +43,6 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsPageState, dispatch}) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
