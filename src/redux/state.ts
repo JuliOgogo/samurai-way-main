@@ -13,7 +13,7 @@ export let store: StoreType = {
                 {id: 2, message: 'How are you?'},
                 {id: 3, message: 'Lol :D'},
             ],
-            newMessageText: 'new message'
+            newMessageText: ''
         },
         profilePage: {
             posts: [
@@ -21,7 +21,7 @@ export let store: StoreType = {
                 {id: 2, message: 'It\'s my first post', likesCounter: 54},
                 {id: 3, message: 'I\'m learning React', likesCounter: 3},
             ],
-            newPostText: 'new post text'
+            newPostText: ''
         },
         sidebar: {
             friends: [
@@ -41,7 +41,7 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action: ActionType) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost: PostType = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -50,10 +50,10 @@ export let store: StoreType = {
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST') {
+        } else if (action.type === UPDATE_NEW_POST) {
             this._state.profilePage.newPostText = action.text
             this._callSubscriber(this._state)
-        } else if (action.type === 'ADD-MESSAGE') {
+        } else if (action.type === ADD_MESSAGE) {
             const newMessage: MessageType = {
                 id: 5,
                 message: this._state.dialogsPage.newMessageText,
@@ -61,7 +61,7 @@ export let store: StoreType = {
             this._state.dialogsPage.messages.push(newMessage)
             this._state.dialogsPage.newMessageText = ''
             this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+        } else if (action.type === UPDATE_NEW_MESSAGE) {
             this._state.dialogsPage.newMessageText = action.text
             this._callSubscriber(this._state)
         }
@@ -69,10 +69,10 @@ export let store: StoreType = {
 }
 
 // action creators
-export const addPostAC = () => ({type: 'ADD-POST'}) as const
-export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST', text}) as const
-export const addMessageAC = () => ({type: 'ADD-MESSAGE'}) as const
-export const updateNewMessageAC = (text: string) => ({type: 'UPDATE-NEW-MESSAGE', text}) as const
+export const addPostAC = () => ({type: ADD_POST}) as const
+export const updateNewPostAC = (text: string) => ({type: UPDATE_NEW_POST, text}) as const
+export const addMessageAC = () => ({type: ADD_MESSAGE}) as const
+export const updateNewMessageAC = (text: string) => ({type: UPDATE_NEW_MESSAGE, text}) as const
 
 // action creators types
 export type ActionType =
@@ -80,6 +80,12 @@ export type ActionType =
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof updateNewMessageAC>
+
+// types constants
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 
 // types
 export type StoreType = {

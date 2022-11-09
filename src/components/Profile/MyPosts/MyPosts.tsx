@@ -31,6 +31,7 @@ const MyPosts: React.FC<MyPostsPropsType> = ({posts, newPostText, dispatch}) => 
             <div>
                 <div>
                     <textarea ref={newPostElement}
+                              placeholder={'enter your message'}
                               value={newPostText}
                               onChange={onChangeHandler}/>
                 </div>

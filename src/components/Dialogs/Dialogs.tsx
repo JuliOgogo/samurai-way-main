@@ -1,4 +1,4 @@
-import React, {RefObject} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
@@ -14,15 +14,15 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsPageState, dispatch}) => {
     const dialogsElements = dialogsPageState.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     const messagesElements = dialogsPageState.messages.map(m => <MessageItem message={m.message}/>)
 
-    const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
+    const newMessageText = dialogsPageState.newMessageText
 
     const onClickHandler = () => {
         dispatch(addMessageAC())
     }
 
-    const onChangeHandler = () => {
-        const text = newMessageElement.current?.value
-        dispatch(updateNewMessageAC(text ? text : ''))
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const text = e.currentTarget.value
+        dispatch(updateNewMessageAC(text))
     }
 
     return (
@@ -34,8 +34,8 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsPageState, dispatch}) => {
                 {messagesElements}
                 <div>
                     <div>
-                        <textarea ref={newMessageElement}
-                                  value={dialogsPageState.newMessageText}
+                        <textarea placeholder={'enter your message'}
+                                  value={newMessageText}
                                   onChange={onChangeHandler}/>
                     </div>
                     <div>
