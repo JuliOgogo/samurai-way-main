@@ -1,7 +1,24 @@
 import {ActionType, DialogsPageStateType, MessageType} from "./state";
 import {v1} from "uuid";
 
-export const dialogsReducer = (action: ActionType, state: DialogsPageStateType): DialogsPageStateType => {
+const initialState: DialogsPageStateType = {
+    dialogs: [
+        {id: 1, name: 'Julia'},
+        {id: 2, name: 'Maxim'},
+        {id: 3, name: 'Katya'},
+        {id: 4, name: 'Alex'},
+        {id: 5, name: 'Galya'},
+    ],
+    messages: [
+        {id: 1, message: 'Hello!'},
+        {id: 2, message: 'How are you?'},
+        {id: 3, message: 'Lol :D'},
+    ],
+    newMessageText: ''
+}
+
+export const dialogsReducer = (action: ActionType, state: DialogsPageStateType = initialState): DialogsPageStateType => {
+    debugger
     switch (action.type) {
         case ADD_MESSAGE: {
             const newMessage: MessageType = {
@@ -17,6 +34,7 @@ export const dialogsReducer = (action: ActionType, state: DialogsPageStateType):
             return state
         }
         default:
+            debugger
             return state
     }
 }
