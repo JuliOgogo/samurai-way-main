@@ -8,7 +8,7 @@ import {Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {ActionType, StateType, store} from "./redux/state";
+import {ActionType, StateType} from "./redux/state";
 import {Friends} from "./components/Friends/Friends";
 
 export type AppPropsType = {
@@ -23,7 +23,7 @@ const App: React.FC<AppPropsType> = ({
     return (
         <div className="app-wrapper">
             <Header/>
-            <Navbar state={store._state.sidebar}/>
+            <Navbar state={state.sidebar}/>
             <div className="app-wrapper-content">
                 <Route path='/dialogs' render={() => <Dialogs dialogsPageState={state.dialogsPage}
                                                               dispatch={dispatch}/>}/>
