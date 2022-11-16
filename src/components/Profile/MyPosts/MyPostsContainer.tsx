@@ -11,7 +11,7 @@ const MyPostsContainer: React.FC<MyPostsContainerPropsType> = ({
                                                                    store
                                                                }) => {
 
-    const state = store.getState()
+    const state = store.getState().profilePage
 
     const addPostOnClickHandler = () => {
         store.dispatch(addPostAC())
@@ -21,8 +21,8 @@ const MyPostsContainer: React.FC<MyPostsContainerPropsType> = ({
         store.dispatch(updateNewPostAC(text ? text : ''))
     }
 
-    return <MyPosts posts={state.profilePage.posts}
-                    newPostText={state.profilePage.newPostText}
+    return <MyPosts posts={state.posts}
+                    newPostText={state.newPostText}
                     addPost={addPostOnClickHandler}
                     updateNewPost={updateNewPostOnChangeHandler}/>
 }
