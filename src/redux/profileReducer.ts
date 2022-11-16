@@ -10,8 +10,7 @@ const initialState: ProfilePageStateType = {
     newPostText: ''
 }
 
-export const profileReducer = (action: ActionType, state: ProfilePageStateType = initialState): ProfilePageStateType => {
-    debugger
+export const profileReducer = (state: ProfilePageStateType = initialState, action: ActionType): ProfilePageStateType => {
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostType = {

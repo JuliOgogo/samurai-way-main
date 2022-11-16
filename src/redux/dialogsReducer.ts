@@ -17,8 +17,7 @@ const initialState: DialogsPageStateType = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (action: ActionType, state: DialogsPageStateType = initialState): DialogsPageStateType => {
-    debugger
+export const dialogsReducer = (state: DialogsPageStateType = initialState, action: ActionType): DialogsPageStateType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             const newMessage: MessageType = {
@@ -34,7 +33,6 @@ export const dialogsReducer = (action: ActionType, state: DialogsPageStateType =
             return state
         }
         default:
-            debugger
             return state
     }
 }

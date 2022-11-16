@@ -8,7 +8,6 @@ const initialState: SidebarStateType = {
     ]
 }
 
-export const sideBarReducer = (action: ActionType, state: SidebarStateType = initialState): SidebarStateType => {
-    debugger
+export const sideBarReducer = (state: SidebarStateType = initialState, action: ActionType): SidebarStateType => {
     return state
 }
