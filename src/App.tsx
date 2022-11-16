@@ -10,16 +10,18 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {StateType} from "./redux/state";
 import {Friends} from "./components/Friends/Friends";
-import {AppDispatchType} from "./redux/redux-store";
+import {AppDispatchType, StoreType} from "./redux/redux-store";
 
 export type AppPropsType = {
     state: StateType
     dispatch: AppDispatchType
+    store: StoreType
 }
 
 const App: React.FC<AppPropsType> = ({
                                          state,
-                                         dispatch
+                                         dispatch,
+                                         store
                                      }) => {
     return (
         <div className="app-wrapper">
@@ -28,8 +30,7 @@ const App: React.FC<AppPropsType> = ({
             <div className="app-wrapper-content">
                 <Route path='/dialogs' render={() => <Dialogs dialogsPageState={state.dialogsPage}
                                                               dispatch={dispatch}/>}/>
-                <Route path='/profile' render={() => <Profile profilePageState={state.profilePage}
-                                                              dispatch={dispatch}/>}/>
+                <Route path='/profile' render={() => <Profile store={store}/>}/>
                 <Route path='/news' render={News}/>
                 <Route path='/music' render={Music}/>
                 <Route path='/settings' render={Settings}/>
