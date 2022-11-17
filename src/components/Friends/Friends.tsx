@@ -3,7 +3,7 @@ import s from './Friends.module.css'
 import {DialogType} from "../../redux/state";
 
 export type FriendsPropsType = {
-    state: DialogType[]
+     state: DialogType[]
 }
 
 export const Friends = (props: FriendsPropsType) => {

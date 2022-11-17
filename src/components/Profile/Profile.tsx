@@ -2,17 +2,14 @@ import React from 'react';
 import s from './Profile.module.css';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {StoreType} from "../../redux/redux-store";
 
-export type ProfilePropsType = {
-    store: StoreType
-}
+export type ProfilePropsType = {}
 
-const Profile: React.FC<ProfilePropsType> = ({store}) => {
+const Profile: React.FC<ProfilePropsType> = () => {
     return (
         <div className={s.profile}>
             <ProfileInfo/>
-            <MyPostsContainer store={store}/>
+            <MyPostsContainer/>
         </div>
     );
 }

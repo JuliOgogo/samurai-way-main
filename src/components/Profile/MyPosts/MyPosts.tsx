@@ -21,13 +21,11 @@ const MyPosts: React.FC<MyPostsPropsType> = ({
 
     const onClickHandler = () => {
         addPost()
-        // dispatch(addPostAC())
     }
 
     const onChangeHandler = () => {
         let text = newPostElement.current?.value;
         text && updateNewPost(text)
-        // dispatch(updateNewPostAC(text ? text : ''))
     }
 
     return (
