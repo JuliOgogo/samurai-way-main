@@ -9,5 +9,5 @@ const initialState: SidebarStateType = {
 }
 
 export const sideBarReducer = (state: SidebarStateType = initialState, action: ActionType): SidebarStateType => {
-    return state
+    return {...state}
 }
