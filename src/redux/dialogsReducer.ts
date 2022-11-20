@@ -22,7 +22,8 @@ export const dialogsReducer = (state: DialogsPageStateType = initialState, actio
         case ADD_MESSAGE: {
             return {
                 ...state,
-                messages: [...state.messages, {id: v1(), message: state.newMessageText}]
+                messages: [...state.messages, {id: v1(), message: state.newMessageText}],
+                newMessageText: ''
             }
         }
         case UPDATE_NEW_MESSAGE: {
