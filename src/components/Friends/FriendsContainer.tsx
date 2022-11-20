@@ -1,18 +1,14 @@
 import React from "react";
 import {Friends} from "./Friends";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {StateType} from "../../redux/state";
 
 export type FriendsContainerPropsType = {}
 
-export const FriendsContainer: React.FC<FriendsContainerPropsType> = () => {
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                const state = store.getState().sidebar.friends
-                return (
-                    <Friends state={state}/>
-                )
-            }}
-        </StoreContext.Consumer>
-    )
+const mapStateToProps = (state: StateType) => {
+    return {
+        state: state.sidebar.friends
+    }
 }
+
+export const FriendsContainer: React.FC<FriendsContainerPropsType> = connect(mapStateToProps)(Friends)
