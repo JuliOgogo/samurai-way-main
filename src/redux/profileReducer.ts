@@ -1,4 +1,4 @@
-import {ActionType, ProfilePageStateType} from "./state";
+import {ProfilePageStateType} from "./types";
 import {v1} from "uuid";
 
 const initialState: ProfilePageStateType = {
@@ -29,6 +29,10 @@ export const profileReducer = (state: ProfilePageStateType = initialState, actio
             return state
     }
 }
+
+type ActionType =
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostAC>
 
 export const addPostAC = () => ({type: ADD_POST}) as const
 export const updateNewPostAC = (text: string) => ({type: UPDATE_NEW_POST, text}) as const

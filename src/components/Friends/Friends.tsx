@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Friends.module.css'
-import {DialogType} from "../../redux/state";
+import {DialogType} from "../../redux/types";
 
 export type FriendsPropsType = {
      state: DialogType[]

@@ -2,7 +2,7 @@ import React from 'react';
 import {addMessageAC, updateNewMessageAC} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {StateType} from "../../redux/state";
+import {StateType} from "../../redux/types";
 import {AppDispatchType} from "../../redux/redux-store";
 
 export type DialogsContainerPropsType = {}

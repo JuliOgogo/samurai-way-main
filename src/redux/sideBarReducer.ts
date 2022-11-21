@@ -1,4 +1,4 @@
-import {ActionType, SidebarStateType} from "./state";
+import {SidebarStateType} from "./types";
 
 const initialState: SidebarStateType = {
     friends: [
@@ -11,3 +11,5 @@ const initialState: SidebarStateType = {
 export const sideBarReducer = (state: SidebarStateType = initialState, action: ActionType): SidebarStateType => {
     return {...state}
 }
+
+type ActionType = ''

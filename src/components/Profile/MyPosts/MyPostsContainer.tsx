@@ -2,7 +2,7 @@ import React from 'react';
 import {addPostAC, updateNewPostAC} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/state";
+import {StateType} from "../../../redux/types";
 import {AppDispatchType} from "../../../redux/redux-store";
 
 export type MyPostsContainerPropsType = {}

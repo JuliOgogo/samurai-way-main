@@ -1,7 +1,7 @@
 import React from "react";
 import {Friends} from "./Friends";
 import {connect} from "react-redux";
-import {StateType} from "../../redux/state";
+import {StateType} from "../../redux/types";
 
 export type FriendsContainerPropsType = {}
 
