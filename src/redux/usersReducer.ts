@@ -3,27 +3,30 @@ import {v1} from "uuid";
 
 const initialState: UsersPageStateType = {
     users: [
-        {
+        /*{
             id: v1(),
             followed: false,
-            fullName: 'Julia T',
+            name: 'Julia T',
             status: 'Want to play Genshin Impact',
-            location: {city: 'Moscow', country: 'Russia'}
+            location: {city: 'Moscow', country: 'Russia'},
+            photos: {small: null}
         },
         {
             id: v1(),
             followed: true,
-            fullName: 'Alex K',
+            name: 'Alex K',
             status: 'Working hard',
-            location: {city: 'Moscow', country: 'Russia'}
+            location: {city: 'Moscow', country: 'Russia'},
+            photos: {small: null}
         },
         {
             id: v1(),
             followed: true,
-            fullName: 'Oksana T',
+            name: 'Oksana T',
             status: 'Walking with Senji',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
+            location: {city: 'Moscow', country: 'Russia'},
+            photos: {small: null}
+        },*/
     ]
 }
 

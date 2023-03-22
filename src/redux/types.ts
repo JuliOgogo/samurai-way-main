@@ -40,9 +40,10 @@ export type PostType = {
 export type UserType = {
     id: string
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: { city: string, country: string }
+    photos: any
 }
 export type UsersPageStateType = {
     users: UserType[]
