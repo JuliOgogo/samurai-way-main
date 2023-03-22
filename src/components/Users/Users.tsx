@@ -18,11 +18,13 @@ export const Users: React.FC<UsersPropsType> = ({
                                                     setUsers
                                                 }) => {
 
-    if (users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
-            debugger
-            setUsers(res.data.items)
-        })
+    const getUsers = () => {
+        if (users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+                debugger
+                setUsers(res.data.items)
+            })
+        }
     }
 
     const usersList = users.map(u => <div key={u.id} className={s.user}>
@@ -46,5 +48,8 @@ export const Users: React.FC<UsersPropsType> = ({
         </div>
     </div>)
 
-    return <div className={s.usersList}>{usersList}</div>
+    return <div className={s.usersList}>
+        <button onClick={getUsers}>Get Users</button>
+        {usersList}
+    </div>
 }
