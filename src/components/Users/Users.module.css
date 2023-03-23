@@ -39,3 +39,8 @@
 .NameAndStatus {
     min-width: 250px;
 }
+
+.selectedPage {
+    font-weight: bold;
+    font-size: large;
+}

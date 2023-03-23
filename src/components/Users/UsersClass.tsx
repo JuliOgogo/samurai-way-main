@@ -6,9 +6,14 @@ import userPhoto from '../../assets/images/userPhoto.png'
 
 export type UsersPropsType = {
     users: UserType[]
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
     follow: (userId: string) => void
     unFollow: (userId: string) => void
     setUsers: (users: UserType[]) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalCount: (setTotalCount: number) => void
 }
 
 export class UsersClass extends React.Component<UsersPropsType, any> {
@@ -17,7 +22,15 @@ export class UsersClass extends React.Component<UsersPropsType, any> {
     }*/
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(res => {
+            this.props.setUsers(res.data.items)
+            this.props.setTotalCount(res.data.totalCount)
+        })
+    }
+
+    changeCurrentPage = (currentPage: number) => {
+        this.props.setCurrentPage(currentPage)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`).then(res => {
             this.props.setUsers(res.data.items)
         })
     }
@@ -44,7 +57,19 @@ export class UsersClass extends React.Component<UsersPropsType, any> {
             </div>
         </div>)
 
+        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        const pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return <div className={s.usersList}>
+            <div>
+                {pages.map(p => <span className={this.props.currentPage === p ? s.selectedPage : ''} onClick={() =>
+                    this.changeCurrentPage(p)
+                }>{p}</span>)}
+            </div>
             {usersList}
         </div>;
     }
