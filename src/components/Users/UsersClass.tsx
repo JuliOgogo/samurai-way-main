@@ -12,10 +12,12 @@ export type UsersPropsType = {
 }
 
 export class UsersClass extends React.Component<UsersPropsType, any> {
-    constructor(props: UsersPropsType) {
+    /*constructor(props: UsersPropsType) {
         super(props);
+    }*/
+
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
-            debugger
             this.props.setUsers(res.data.items)
         })
     }
@@ -41,6 +43,7 @@ export class UsersClass extends React.Component<UsersPropsType, any> {
                 </div>
             </div>
         </div>)
+
         return <div className={s.usersList}>
             {usersList}
         </div>;
