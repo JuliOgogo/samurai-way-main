@@ -1,27 +1,31 @@
 import React from "react";
-import s from "./Users.module.css";
-import userPhoto from "../../assets/images/userPhoto.png";
 import {UserType} from "../../redux/types";
+import s from './Users.module.css';
+import axios from "axios";
+import userPhoto from '../../assets/images/userPhoto.png'
 
 export type UsersPropsType = {
     users: UserType[]
     follow: (userId: string) => void
     unFollow: (userId: string) => void
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    changeCurrentPage: (currentPage: number) => void
+    setUsers: (users: UserType[]) => void
 }
 
-export const Users: React.FC<UsersPropsType> = ({
+export const UsersOld: React.FC<UsersPropsType> = ({
                                                     users,
                                                     follow,
                                                     unFollow,
-                                                    totalUsersCount,
-                                                    pageSize,
-                                                    currentPage,
-                                                    changeCurrentPage
+                                                    setUsers
                                                 }) => {
+
+    const getUsers = () => {
+        if (users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(res => {
+                debugger
+                setUsers(res.data.items)
+            })
+        }
+    }
 
     const usersList = users.map(u => <div key={u.id} className={s.user}>
 
@@ -44,19 +48,8 @@ export const Users: React.FC<UsersPropsType> = ({
         </div>
     </div>)
 
-    const pagesCount = Math.ceil(totalUsersCount / pageSize)
-
-    const pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
     return <div className={s.usersList}>
-        <div>
-            {pages.map(p => <span className={currentPage === p ? s.selectedPage : ''} onClick={() =>
-                changeCurrentPage(p)
-            }>{p}</span>)}
-        </div>
+        <button onClick={getUsers}>Get Users</button>
         {usersList}
-    </div>;
+    </div>
 }
