@@ -25,7 +25,7 @@ export let store: StoreType = {
                 {id: 2, message: 'It\'s my first post', likesCounter: 54},
                 {id: 3, message: 'I\'m learning React', likesCounter: 3},
             ],
-            newPostText: ''
+            newPostText: '',
         },
         sidebar: {
             friends: [
@@ -46,7 +46,7 @@ export let store: StoreType = {
     },
     dispatch(action: any) {
 
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        /*this._state.profilePage = profileReducer(this._state.profilePage, action)*/
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sideBarReducer(this._state.sidebar, action)
 

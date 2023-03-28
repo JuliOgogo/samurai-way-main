@@ -20,6 +20,28 @@ export type DialogsPageStateType = {
 export type ProfilePageStateType = {
     posts: PostType[]
     newPostText: string
+    profile: null | UserProfileType
+}
+export type UserProfileType = {
+    aboutMe: null | string
+    contacts: {
+        facebook: null | string
+        website: null | string
+        vk: null | string
+        twitter: null | string
+        instagram: null | string
+        youtube: null | string
+        github: null | string
+        mainLink: null | string
+    },
+    lookingForAJob: boolean
+    lookingForAJobDescription: null | string
+    fullName: null | string
+    userId: number
+    photos: {
+        small: null | string
+        large: null | string
+    }
 }
 export type SidebarStateType = {
     friends: DialogType[]

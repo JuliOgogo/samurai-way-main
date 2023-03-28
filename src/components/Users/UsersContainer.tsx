@@ -20,7 +20,7 @@ export type UsersContainerPropsType = {
     toggleIsFetching: (value: boolean) => void
 }
 
-export class UsersContainer extends React.Component<UsersContainerPropsType, any> {
+class UsersContainer extends React.Component<UsersContainerPropsType, any> {
     /*constructor(props: UsersPropsType) {
         super(props);
     }*/
