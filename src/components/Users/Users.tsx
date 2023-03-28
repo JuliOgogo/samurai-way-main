@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/userPhoto.png";
 import {UserType} from "../../redux/types";
+import {Pagination} from "@mui/material";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -51,11 +52,15 @@ export const Users: React.FC<UsersPropsType> = ({
         pages.push(i)
     }
 
+    const [page, setPage] = React.useState(1);
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        changeCurrentPage(value)
+        setPage(value)
+    };
+
     return <div className={s.usersList}>
-        <div>
-            {pages.map(p => <span className={currentPage === p ? s.selectedPage : ''} onClick={() =>
-                changeCurrentPage(p)
-            }>{p}</span>)}
+        <div className={s.pagination}>
+            <Pagination count={pages.length} page={page} onChange={handleChange} color={'secondary'}/>
         </div>
         {usersList}
     </div>;

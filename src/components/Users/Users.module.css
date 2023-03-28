@@ -6,6 +6,10 @@
     justify-content: center;
 }
 
+.pagination {
+    margin-bottom: 10px;
+}
+
 .user {
     display: flex;
     gap: 20px;
