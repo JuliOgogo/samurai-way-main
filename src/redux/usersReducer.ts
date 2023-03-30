@@ -1,5 +1,4 @@
 import {UsersPageStateType, UserType} from "./types";
-import {v1} from "uuid";
 
 const initialState: UsersPageStateType = {
     users: [
@@ -31,7 +30,8 @@ const initialState: UsersPageStateType = {
     totalUsersCount: 0,
     pageSize: 5,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followUnfollowInProgress: false
 }
 
 export const usersReducer = (state: UsersPageStateType = initialState, action: ActionType): UsersPageStateType => {
@@ -72,6 +72,12 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
                 isFetching: action.value
             }
         }
+        case SET_FOLLOW_UNFOLLOW_IN_PROGRESS: {
+            return {
+                ...state,
+                followUnfollowInProgress: action.value
+            }
+        }
         default:
             return state
     }
@@ -83,7 +89,8 @@ type ActionType =
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalCount> |
-    ReturnType<typeof toggleIsFetching>
+    ReturnType<typeof toggleIsFetching> |
+    ReturnType<typeof setFollowUnfollowInProgress>
 
 export const follow = (userId: string) => ({type: FOLLOW, userId}) as const
 export const unFollow = (userId: string) => ({type: UNFOLLOW, userId}) as const
@@ -91,6 +98,7 @@ export const setUsers = (users: UserType[]) => ({type: SET_USERS, users}) as con
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setTotalCount = (totalCount: number) => ({type: SET_TOTAL_COUNT, totalCount}) as const
 export const toggleIsFetching = (value: boolean) => ({type: TOGGLE_IS_FETCHING, value}) as const
+export const setFollowUnfollowInProgress = (value: boolean) => ({type: SET_FOLLOW_UNFOLLOW_IN_PROGRESS, value}) as const
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -98,3 +106,4 @@ const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const SET_FOLLOW_UNFOLLOW_IN_PROGRESS = 'SET_FOLLOW_UNFOLLOW_IN_PROGRESS'

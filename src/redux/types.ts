@@ -73,4 +73,5 @@ export type UsersPageStateType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    followUnfollowInProgress: boolean
 }

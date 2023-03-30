@@ -14,6 +14,8 @@ export type UsersPropsType = {
     pageSize: number
     currentPage: number
     changeCurrentPage: (currentPage: number) => void
+    setFollowUnfollowInProgress: (value: boolean) => void
+    followUnfollowInProgress: boolean
 }
 
 export const Users: React.FC<UsersPropsType> = ({
@@ -23,7 +25,9 @@ export const Users: React.FC<UsersPropsType> = ({
                                                     totalUsersCount,
                                                     pageSize,
                                                     currentPage,
-                                                    changeCurrentPage
+                                                    changeCurrentPage,
+                                                    setFollowUnfollowInProgress,
+                                                    followUnfollowInProgress
                                                 }) => {
 
     const usersList = users.map(u => <div key={u.id} className={s.user}>
@@ -36,30 +40,37 @@ export const Users: React.FC<UsersPropsType> = ({
                 u.followed ?
 
                     <button onClick={() => {
-                        axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {withCredentials: true,
+                        setFollowUnfollowInProgress(true)
+                        axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {
+                            withCredentials: true,
                             headers: {
                                 'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
-                            }}).then(res => {
+                            }
+                        }).then(res => {
                             if (res.data.resultCode === 0) {
                                 unFollow(u.id)
                             }
+                            setFollowUnfollowInProgress(false)
                         })
 
-                    }}>Unfollow</button> :
-
+                    }} disabled={followUnfollowInProgress}>Unfollow</button> :
 
 
                     <button onClick={() => {
-                        axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {withCredentials: true,
-                        headers: {
-                            'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
-                        }}).then(res => {
+                        setFollowUnfollowInProgress(true)
+                        axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {
+                            withCredentials: true,
+                            headers: {
+                                'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
+                            }
+                        }).then(res => {
                             if (res.data.resultCode === 0) {
                                 follow(u.id)
                             }
+                            setFollowUnfollowInProgress(false)
                         })
 
-                    }}>Follow</button>
+                    }} disabled={followUnfollowInProgress}>Follow</button>
             }
         </div>
         <div className={s.body}>
