@@ -60,7 +60,7 @@ export type PostType = {
     likesCounter: number
 }
 export type UserType = {
-    id: string
+    id: number
     followed: boolean
     name: string
     status: string
@@ -73,5 +73,5 @@ export type UsersPageStateType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
-    followUnfollowInProgress: boolean
+    followUnfollowInProgress: Array<number>
 }

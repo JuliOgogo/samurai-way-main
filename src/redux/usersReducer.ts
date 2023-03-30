@@ -31,7 +31,7 @@ const initialState: UsersPageStateType = {
     pageSize: 5,
     currentPage: 1,
     isFetching: true,
-    followUnfollowInProgress: false
+    followUnfollowInProgress: []
 }
 
 export const usersReducer = (state: UsersPageStateType = initialState, action: ActionType): UsersPageStateType => {
@@ -75,7 +75,8 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
         case SET_FOLLOW_UNFOLLOW_IN_PROGRESS: {
             return {
                 ...state,
-                followUnfollowInProgress: action.value
+                followUnfollowInProgress: action.value ? [...state.followUnfollowInProgress, action.id] :
+                    state.followUnfollowInProgress.filter(id => id != action.id)
             }
         }
         default:
@@ -92,13 +93,17 @@ type ActionType =
     ReturnType<typeof toggleIsFetching> |
     ReturnType<typeof setFollowUnfollowInProgress>
 
-export const follow = (userId: string) => ({type: FOLLOW, userId}) as const
-export const unFollow = (userId: string) => ({type: UNFOLLOW, userId}) as const
+export const follow = (userId: number) => ({type: FOLLOW, userId}) as const
+export const unFollow = (userId: number) => ({type: UNFOLLOW, userId}) as const
 export const setUsers = (users: UserType[]) => ({type: SET_USERS, users}) as const
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setTotalCount = (totalCount: number) => ({type: SET_TOTAL_COUNT, totalCount}) as const
 export const toggleIsFetching = (value: boolean) => ({type: TOGGLE_IS_FETCHING, value}) as const
-export const setFollowUnfollowInProgress = (value: boolean) => ({type: SET_FOLLOW_UNFOLLOW_IN_PROGRESS, value}) as const
+export const setFollowUnfollowInProgress = (value: boolean, id: number) => ({
+    type: SET_FOLLOW_UNFOLLOW_IN_PROGRESS,
+    value,
+    id
+}) as const
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'

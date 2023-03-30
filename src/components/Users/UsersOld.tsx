@@ -6,8 +6,8 @@ import userPhoto from '../../assets/images/userPhoto.png'
 
 export type UsersPropsType = {
     users: UserType[]
-    follow: (userId: string) => void
-    unFollow: (userId: string) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
 }
 

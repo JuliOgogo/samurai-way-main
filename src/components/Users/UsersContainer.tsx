@@ -19,15 +19,15 @@ export type UsersContainerPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    follow: (userId: string) => void
-    unFollow: (userId: string) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (currentPage: number) => void
     setTotalCount: (setTotalCount: number) => void
     isFetching: boolean
     toggleIsFetching: (value: boolean) => void
-    setFollowUnfollowInProgress: (value: boolean) => void
-    followUnfollowInProgress: boolean
+    setFollowUnfollowInProgress: (value: boolean, id: number) => void
+    followUnfollowInProgress: Array<number>
 }
 
 class UsersContainer extends React.Component<UsersContainerPropsType, any> {

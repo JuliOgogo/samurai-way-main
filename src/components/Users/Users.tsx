@@ -8,14 +8,14 @@ import axios from "axios";
 
 export type UsersPropsType = {
     users: UserType[]
-    follow: (userId: string) => void
-    unFollow: (userId: string) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
     changeCurrentPage: (currentPage: number) => void
-    setFollowUnfollowInProgress: (value: boolean) => void
-    followUnfollowInProgress: boolean
+    setFollowUnfollowInProgress: (value: boolean, id: number) => void
+    followUnfollowInProgress: Array<number>
 }
 
 export const Users: React.FC<UsersPropsType> = ({
@@ -40,7 +40,7 @@ export const Users: React.FC<UsersPropsType> = ({
                 u.followed ?
 
                     <button onClick={() => {
-                        setFollowUnfollowInProgress(true)
+                        setFollowUnfollowInProgress(true, u.id)
                         axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {
                             withCredentials: true,
                             headers: {
@@ -50,14 +50,14 @@ export const Users: React.FC<UsersPropsType> = ({
                             if (res.data.resultCode === 0) {
                                 unFollow(u.id)
                             }
-                            setFollowUnfollowInProgress(false)
+                            setFollowUnfollowInProgress(false, u.id)
                         })
 
-                    }} disabled={followUnfollowInProgress}>Unfollow</button> :
+                    }} disabled={followUnfollowInProgress.some(id => id === u.id)}>Unfollow</button> :
 
 
                     <button onClick={() => {
-                        setFollowUnfollowInProgress(true)
+                        setFollowUnfollowInProgress(true, u.id)
                         axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {
                             withCredentials: true,
                             headers: {
@@ -67,10 +67,10 @@ export const Users: React.FC<UsersPropsType> = ({
                             if (res.data.resultCode === 0) {
                                 follow(u.id)
                             }
-                            setFollowUnfollowInProgress(false)
+                            setFollowUnfollowInProgress(false, u.id)
                         })
 
-                    }} disabled={followUnfollowInProgress}>Follow</button>
+                    }} disabled={followUnfollowInProgress.some(id => id === u.id)}>Follow</button>
             }
         </div>
         <div className={s.body}>
