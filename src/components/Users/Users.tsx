@@ -55,7 +55,7 @@ export const Users: React.FC<UsersPropsType> = ({
         pages.push(i)
     }
 
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = React.useState(currentPage);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         changeCurrentPage(value)
         setPage(value)
