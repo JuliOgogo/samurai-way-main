@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/userPhoto.png";
 import {UserType} from "../../redux/types";
 import {Pagination} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -32,8 +33,33 @@ export const Users: React.FC<UsersPropsType> = ({
                 <img className={s.avatar} src={u.photos.small === null ? userPhoto : u.photos.small} alt="user photo"/>
             </NavLink>
             {
-                u.followed ? <button onClick={() => unFollow(u.id)}>Unfollow</button> :
-                    <button onClick={() => follow(u.id)}>Follow</button>
+                u.followed ?
+
+                    <button onClick={() => {
+                        axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {withCredentials: true,
+                            headers: {
+                                'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
+                            }}).then(res => {
+                            if (res.data.resultCode === 0) {
+                                unFollow(u.id)
+                            }
+                        })
+
+                    }}>Unfollow</button> :
+
+
+
+                    <button onClick={() => {
+                        axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {withCredentials: true,
+                        headers: {
+                            'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
+                        }}).then(res => {
+                            if (res.data.resultCode === 0) {
+                                follow(u.id)
+                            }
+                        })
+
+                    }}>Follow</button>
             }
         </div>
         <div className={s.body}>
