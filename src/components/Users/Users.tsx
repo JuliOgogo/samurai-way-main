@@ -4,17 +4,13 @@ import userPhoto from "../../assets/images/userPhoto.png";
 import {UserType} from "../../redux/types";
 import {Pagination} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 export type UsersPropsType = {
     users: UserType[]
-    followSuccess: (userId: number) => void
-    unFollowSuccess: (userId: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
     changeCurrentPage: (currentPage: number) => void
-    setFollowUnfollowInProgress: (value: boolean, id: number) => void
     followUnfollowInProgress: Array<number>
     follow: (userID: number) => void
     unfollow: (userID: number) => void
@@ -22,13 +18,10 @@ export type UsersPropsType = {
 
 export const Users: React.FC<UsersPropsType> = ({
                                                     users,
-                                                    followSuccess,
-                                                    unFollowSuccess,
                                                     totalUsersCount,
                                                     pageSize,
                                                     currentPage,
                                                     changeCurrentPage,
-                                                    setFollowUnfollowInProgress,
                                                     followUnfollowInProgress,
                                                     follow, unfollow
                                                 }) => {
@@ -42,32 +35,11 @@ export const Users: React.FC<UsersPropsType> = ({
             {
                 u.followed ?
 
-                    <button onClick={() => {
-                        /*setFollowUnfollowInProgress(true, u.id)
-                        usersAPI.unfollow(u.id).then(res => {
-                            if (res.data.resultCode === 0) {
-                                unFollowSuccess(u.id)
-                            }
-                            setFollowUnfollowInProgress(false, u.id)
-                        })*/
+                    <button onClick={() => {unfollow(u.id)}}
+                            disabled={followUnfollowInProgress.some(id => id === u.id)}>Unfollow</button> :
 
-                        unfollow(u.id)
-
-                    }} disabled={followUnfollowInProgress.some(id => id === u.id)}>Unfollow</button> :
-
-
-                    <button onClick={() => {
-                        /*setFollowUnfollowInProgress(true, u.id)
-                        usersAPI.follow(u.id).then(res => {
-                            if (res.data.resultCode === 0) {
-                                followSuccess(u.id)
-                            }
-                            setFollowUnfollowInProgress(false, u.id)
-                        })*/
-
-                        follow(u.id)
-
-                    }} disabled={followUnfollowInProgress.some(id => id === u.id)}>Follow</button>
+                    <button onClick={() => {follow(u.id)}}
+                            disabled={followUnfollowInProgress.some(id => id === u.id)}>Follow</button>
             }
         </div>
         <div className={s.body}>
