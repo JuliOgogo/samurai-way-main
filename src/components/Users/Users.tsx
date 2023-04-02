@@ -4,30 +4,33 @@ import userPhoto from "../../assets/images/userPhoto.png";
 import {UserType} from "../../redux/types";
 import {Pagination} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 export type UsersPropsType = {
     users: UserType[]
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
+    followSuccess: (userId: number) => void
+    unFollowSuccess: (userId: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
     changeCurrentPage: (currentPage: number) => void
     setFollowUnfollowInProgress: (value: boolean, id: number) => void
     followUnfollowInProgress: Array<number>
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
 }
 
 export const Users: React.FC<UsersPropsType> = ({
                                                     users,
-                                                    follow,
-                                                    unFollow,
+                                                    followSuccess,
+                                                    unFollowSuccess,
                                                     totalUsersCount,
                                                     pageSize,
                                                     currentPage,
                                                     changeCurrentPage,
                                                     setFollowUnfollowInProgress,
-                                                    followUnfollowInProgress
+                                                    followUnfollowInProgress,
+                                                    follow, unfollow
                                                 }) => {
 
     const usersList = users.map(u => <div key={u.id} className={s.user}>
@@ -40,35 +43,29 @@ export const Users: React.FC<UsersPropsType> = ({
                 u.followed ?
 
                     <button onClick={() => {
-                        setFollowUnfollowInProgress(true, u.id)
-                        axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {
-                            withCredentials: true,
-                            headers: {
-                                'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
-                            }
-                        }).then(res => {
+                        /*setFollowUnfollowInProgress(true, u.id)
+                        usersAPI.unfollow(u.id).then(res => {
                             if (res.data.resultCode === 0) {
-                                unFollow(u.id)
+                                unFollowSuccess(u.id)
                             }
                             setFollowUnfollowInProgress(false, u.id)
-                        })
+                        })*/
+
+                        unfollow(u.id)
 
                     }} disabled={followUnfollowInProgress.some(id => id === u.id)}>Unfollow</button> :
 
 
                     <button onClick={() => {
-                        setFollowUnfollowInProgress(true, u.id)
-                        axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {
-                            withCredentials: true,
-                            headers: {
-                                'api-key': '1be0657b-9ae5-4d5f-9112-827d776371f6'
-                            }
-                        }).then(res => {
+                        /*setFollowUnfollowInProgress(true, u.id)
+                        usersAPI.follow(u.id).then(res => {
                             if (res.data.resultCode === 0) {
-                                follow(u.id)
+                                followSuccess(u.id)
                             }
                             setFollowUnfollowInProgress(false, u.id)
-                        })
+                        })*/
+
+                        follow(u.id)
 
                     }} disabled={followUnfollowInProgress.some(id => id === u.id)}>Follow</button>
             }

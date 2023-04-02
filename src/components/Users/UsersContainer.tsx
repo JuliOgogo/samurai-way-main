@@ -1,7 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
 import {StateType, UserType} from "../../redux/types";
-import {follow, getUsers, setCurrentPage, setFollowUnfollowInProgress, unFollow} from "../../redux/usersReducer";
+import {
+    follow,
+    followSuccess,
+    getUsers,
+    setCurrentPage,
+    setFollowUnfollowInProgress, unfollow,
+    unFollowSuccess
+} from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 
@@ -10,13 +17,15 @@ export type UsersContainerPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
+    followSuccess: (userId: number) => void
+    unFollowSuccess: (userId: number) => void
     setCurrentPage: (currentPage: number) => void
     isFetching: boolean
     setFollowUnfollowInProgress: (value: boolean, id: number) => void
     followUnfollowInProgress: Array<number>
     getUsers: (currentPage: number, pageSize: number) => void
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
 }
 
 class UsersContainer extends React.Component<UsersContainerPropsType, any> {
@@ -50,14 +59,16 @@ class UsersContainer extends React.Component<UsersContainerPropsType, any> {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users users={this.props.users}
-                   follow={this.props.follow}
-                   unFollow={this.props.unFollow}
+                   followSuccess={this.props.followSuccess}
+                   unFollowSuccess={this.props.unFollowSuccess}
                    totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
                    changeCurrentPage={this.changeCurrentPage}
                    setFollowUnfollowInProgress={this.props.setFollowUnfollowInProgress}
                    followUnfollowInProgress={this.props.followUnfollowInProgress}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
             />
         </>
     }
@@ -86,5 +97,6 @@ const mapStateToProps = (state: StateType) => {
 }*/
 
 export default connect(mapStateToProps, {
-    follow, unFollow, setCurrentPage, setFollowUnfollowInProgress, getUsers
+    followSuccess, unFollowSuccess, setCurrentPage, setFollowUnfollowInProgress, getUsers,
+    follow, unfollow
 })(UsersContainer)

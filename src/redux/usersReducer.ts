@@ -38,13 +38,13 @@ const initialState: UsersPageStateType = {
 
 export const usersReducer = (state: UsersPageStateType = initialState, action: ActionType): UsersPageStateType => {
     switch (action.type) {
-        case FOLLOW: {
+        case FOLLOW_SUCCESS: {
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         }
-        case UNFOLLOW: {
+        case UNFOLLOW_SUCCESS: {
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
@@ -87,16 +87,16 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
 }
 
 type ActionType =
-    ReturnType<typeof follow> |
-    ReturnType<typeof unFollow> |
+    ReturnType<typeof followSuccess> |
+    ReturnType<typeof unFollowSuccess> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalCount> |
     ReturnType<typeof toggleIsFetching> |
     ReturnType<typeof setFollowUnfollowInProgress>
 
-export const follow = (userId: number) => ({type: FOLLOW, userId}) as const
-export const unFollow = (userId: number) => ({type: UNFOLLOW, userId}) as const
+export const followSuccess = (userId: number) => ({type: FOLLOW_SUCCESS, userId}) as const
+export const unFollowSuccess = (userId: number) => ({type: UNFOLLOW_SUCCESS, userId}) as const
 export const setUsers = (users: UserType[]) => ({type: SET_USERS, users}) as const
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setTotalCount = (totalCount: number) => ({type: SET_TOTAL_COUNT, totalCount}) as const
@@ -116,8 +116,28 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Di
     })
 }
 
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
+export const follow = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowUnfollowInProgress(true, userID))
+    usersAPI.follow(userID).then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(followSuccess(userID))
+        }
+        dispatch(setFollowUnfollowInProgress(false, userID))
+    })
+}
+
+export const unfollow = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(setFollowUnfollowInProgress(true, userID))
+    usersAPI.unfollow(userID).then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(unFollowSuccess(userID))
+        }
+        dispatch(setFollowUnfollowInProgress(false, userID))
+    })
+}
+
+const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS'
+const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
