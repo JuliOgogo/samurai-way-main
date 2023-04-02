@@ -1,4 +1,6 @@
 import {UsersPageStateType, UserType} from "./types";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 const initialState: UsersPageStateType = {
     users: [
@@ -104,6 +106,15 @@ export const setFollowUnfollowInProgress = (value: boolean, id: number) => ({
     value,
     id
 }) as const
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalCount(data.totalCount))
+    })
+}
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
