@@ -2,14 +2,14 @@ import React from 'react';
 import {addMessageAC, updateNewMessageAC} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {StateType} from "../../redux/types";
-import {AppDispatchType} from "../../redux/redux-store";
+import {AppDispatchType, AppRootStateType} from "../../redux/redux-store";
 
 export type DialogsContainerPropsType = {}
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
-        dialogsPageState: state.dialogsPage
+        dialogsPageState: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: AppDispatchType) => {
