@@ -1,5 +1,7 @@
 import {ProfilePageStateType, UserProfileType} from "./types";
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 const initialState: ProfilePageStateType = {
     posts: [
@@ -44,6 +46,12 @@ type ActionType =
 export const addPostAC = () => ({type: ADD_POST}) as const
 export const updateNewPostAC = (text: string) => ({type: UPDATE_NEW_POST, text}) as const
 export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(res => {
+        dispatch(setUserProfile(res.data))
+    })
+}
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
