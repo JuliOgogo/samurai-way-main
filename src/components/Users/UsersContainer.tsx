@@ -1,24 +1,30 @@
 import React from "react";
 import {connect} from "react-redux";
-import {StateType, UserType} from "../../redux/types";
+import {UserType} from "../../redux/types";
 import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {AppRootStateType} from "../../redux/redux-store";
 
-export type UsersContainerPropsType = {
+type MapStateToPropsType = {
     users: UserType[]
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    setCurrentPage: (currentPage: number) => void
     isFetching: boolean
     followUnfollowInProgress: Array<number>
+}
+
+type MapDispatchToPropsType = {
+    setCurrentPage: (currentPage: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
     follow: (userID: number) => void
     unfollow: (userID: number) => void
 }
 
-class UsersContainer extends React.Component<UsersContainerPropsType, any> {
+type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+class UsersContainer extends React.Component<UsersContainerPropsType> {
     /*constructor(props: UsersPropsType) {
         super(props);
     }*/
@@ -61,7 +67,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, any> {
     }
 }
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
         totalUsersCount: state.usersPage.totalUsersCount,

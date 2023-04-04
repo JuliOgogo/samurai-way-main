@@ -20,7 +20,31 @@ export type DialogsPageStateType = {
 export type ProfilePageStateType = {
     posts: PostType[]
     newPostText: string
-    profile: null | UserProfileType
+    profile: UserProfileType
+}
+export type SidebarStateType = {
+    friends: DialogType[]
+}
+export type UsersPageStateType = {
+    users: UserType[]
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    followUnfollowInProgress: Array<number>
+}
+export type DialogType = {
+    id: number | string
+    name: string
+}
+export type MessageType = {
+    id: number | string
+    message: string
+}
+export type PostType = {
+    id: number | string
+    message: string
+    likesCounter: number
 }
 export type UserProfileType = {
     aboutMe: null | string
@@ -43,22 +67,6 @@ export type UserProfileType = {
         large: null | string
     }
 }
-export type SidebarStateType = {
-    friends: DialogType[]
-}
-export type DialogType = {
-    id: number | string
-    name: string
-}
-export type MessageType = {
-    id: number | string
-    message: string
-}
-export type PostType = {
-    id: number | string
-    message: string
-    likesCounter: number
-}
 export type UserType = {
     id: number
     followed: boolean
@@ -66,12 +74,4 @@ export type UserType = {
     status: string
     location: { city: string, country: string }
     photos: any
-}
-export type UsersPageStateType = {
-    users: UserType[]
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
-    followUnfollowInProgress: Array<number>
 }

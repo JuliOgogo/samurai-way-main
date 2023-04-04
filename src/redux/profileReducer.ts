@@ -10,8 +10,27 @@ const initialState: ProfilePageStateType = {
         {id: 3, message: 'I\'m learning React', likesCounter: 3},
     ],
     newPostText: '',
-    profile: null
-}
+    profile: {
+        aboutMe: null,
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null,
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: null,
+        fullName: null,
+        userId: 0,
+        photos: {
+            small: null,
+            large: null,
+        }
+}}
 
 export const profileReducer = (state: ProfilePageStateType = initialState, action: ActionType): ProfilePageStateType => {
     switch (action.type) {
