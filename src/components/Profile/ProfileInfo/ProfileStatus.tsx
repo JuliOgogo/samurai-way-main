@@ -6,7 +6,12 @@ export type ProfileStatusPropsType = {
 
 export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     state = {
-        editMode: true
+        editMode: false
+    }
+
+    changeEditMode = (value: boolean) => {
+        this.setState({editMode: value})
+        // setState асинхронная ф-ция!
     }
 
     render() {
@@ -14,13 +19,18 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
             {this.state.editMode ?
                 <div>
-                    <input type="text" value={this.props.text}/>
+                    <input type="text" value={this.props.text}
+                           onBlur={() => this.changeEditMode(false)}
+                           autoFocus={true}/>
                 </div>
                 :
                 <div>
-                    <span>{this.props.text}</span>
+                    <span onDoubleClick={() => {
+                        this.changeEditMode(true)
+                    }}>{this.props.text}</span>
                 </div>
             }
+
         </div>
     }
 }
