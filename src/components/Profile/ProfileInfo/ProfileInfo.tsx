@@ -2,6 +2,7 @@ import React from "react";
 import s from './ProfileInfo.module.css';
 import {UserProfileType} from "../../../redux/types";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 export type ProfileInfoPropsType = {
     profile: UserProfileType
@@ -13,10 +14,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         return <Preloader/>
     }
 
-    return <div>
-        <img
-            src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-            alt="" className={s.headerImg}/>
+    return <div className={s.profileInfo}>
         <div className={s.descriptionBlock}>
             <img src={props.profile.photos.small ? props.profile.photos.small : ''} alt="avatar"/>
             <div className={s.description}>
@@ -27,5 +25,6 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 {props.profile.contacts.github}<br/>
             </div>
         </div>
+        <ProfileStatus text={'Hello'}/>
     </div>
 }
