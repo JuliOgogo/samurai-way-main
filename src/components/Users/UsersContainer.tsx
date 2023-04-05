@@ -5,6 +5,7 @@ import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReduc
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {AppRootStateType} from "../../redux/redux-store";
+import {compose} from "redux";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -89,4 +90,6 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 }*/
 
-export default connect(mapStateToProps, {setCurrentPage, getUsers, follow, unfollow})(UsersContainer)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {setCurrentPage, getUsers, follow, unfollow})
+)(UsersContainer)

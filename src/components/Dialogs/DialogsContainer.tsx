@@ -5,6 +5,7 @@ import {AppDispatchType, AppRootStateType} from "../../redux/redux-store";
 import {DialogsPageStateType} from "../../redux/types";
 import Dialogs from "./Dialogs";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type MapStateToPropsType = {
     dialogsPageState: DialogsPageStateType
@@ -29,6 +30,4 @@ const mapDispatchToProps = (dispatch: AppDispatchType): MapDispatchToPropsType =
     }
 }
 
-const AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
