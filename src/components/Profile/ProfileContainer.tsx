@@ -13,7 +13,6 @@ type PathParamsType = {
 
 type MapStateToPropsType = {
     profile: UserProfileType
-    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -36,15 +35,13 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
+
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
     }
 }
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+const WithUrlParamsContainerComponent = withRouter(ProfileContainer)
 
-const WithUrlParamsContainerComponent = withRouter(AuthRedirectComponent)
-
-export default connect(mapStateToProps, {getUserProfile})(WithUrlParamsContainerComponent);
+export default withAuthRedirect(connect(mapStateToProps, {getUserProfile})(WithUrlParamsContainerComponent));
