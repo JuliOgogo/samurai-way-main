@@ -6,12 +6,14 @@ import {UserProfileType} from "../../redux/types";
 
 export type ProfilePropsType = {
     profile: UserProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
-const Profile: React.FC<ProfilePropsType> = ({profile}) => {
+const Profile: React.FC<ProfilePropsType> = ({profile, status, updateStatus}) => {
     return (
         <div className={s.profile}>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
             <MyPostsContainer/>
         </div>
     );

@@ -21,6 +21,7 @@ export type ProfilePageStateType = {
     posts: PostType[]
     newPostText: string
     profile: UserProfileType
+    status: string
 }
 export type SidebarStateType = {
     friends: DialogType[]
