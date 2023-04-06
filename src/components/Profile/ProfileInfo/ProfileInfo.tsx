@@ -17,16 +17,23 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
 
     return <div className={s.profileInfo}>
-        <div className={s.descriptionBlock}>
-            <img src={props.profile.photos.small ? props.profile.photos.small : ''} alt="avatar"/>
-            <div className={s.description}>
-                {props.profile.fullName}<br/>
-                {props.profile.aboutMe}<br/>
-                {props.profile.contacts.vk}<br/>
-                {props.profile.contacts.instagram}<br/>
-                {props.profile.contacts.github}<br/>
+
+        <div className={s.photoAndName}>
+            <img className={s.photo}
+                 src={props.profile.photos.small ? props.profile.photos.small : 'https://thypix.com/wp-content/uploads/2021/10/anime-avatar-profile-picture-thypix-55-700x700.jpg'}
+                 alt="avatar"/>
+            <div className={s.name}>
+                {props.profile.fullName}
             </div>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </div>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+
+        <div className={s.description}>
+            {/*{props.profile.aboutMe}<br/>
+            {props.profile.contacts.vk}<br/>
+            {props.profile.contacts.instagram}<br/>
+            {props.profile.contacts.github}<br/>*/}
+        </div>
+
     </div>
 }

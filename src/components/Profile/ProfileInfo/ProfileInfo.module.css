@@ -1,12 +1,28 @@
 .profileInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 300px;
+}
+
+.photoAndName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo {
+    width: 100px;
+    height: 100px;
+}
+
+.name {
 
 }
 
-.descriptionBlock {
-    padding: 10px;
-    width: 400px;
-    border: 1px solid orange;
-    border-radius: 5px;
-    display: flex;
-    gap: 20px;
+.description {
+
 }
