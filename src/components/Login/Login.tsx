@@ -1,32 +1,52 @@
 import React from 'react';
 import s from './Login.module.css';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
-type LoginPropsType = {}
+// === Login page ===
 
-const Login: React.FC<LoginPropsType> = () => {
+const Login: React.FC = () => {
+    const onSubmit = (formData: LoginFormPropsType) => {
+        console.log(formData)
+    }
+
     return <div className={s.login}>
         <h1>LOGIN</h1>
-        <LoginForm/>
+        <ReduxLoginForm onSubmit={onSubmit}/>
     </div>
 }
 
-type LoginFormPropsType = {}
+// Simple Login form ===
 
-const LoginForm: React.FC<LoginFormPropsType> = () => {
-    return <form action="">
+type LoginFormPropsType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
+
+const LoginForm: React.FC<InjectedFormProps<LoginFormPropsType>> = ({handleSubmit}) => {
+    return <form action="" onSubmit={handleSubmit}>
         <div>
-            <input placeholder={'Login'}/>
+            <Field placeholder={'Login'} name={'login'} component={'input'}/>
         </div>
         <div>
-            <input placeholder={'Password'}/>
+            <Field placeholder={'Password'} name={'password'} component={'input'}/>
         </div>
         <div>
-            <input type={"checkbox"}/> Remember me
+            <Field type={"checkbox"} name={'rememberMe'} component={'input'}/> Remember me
         </div>
         <div>
             <button>Login</button>
         </div>
     </form>
 }
+
+// === Redux Login form ===
+
+const ReduxLoginForm = reduxForm<LoginFormPropsType>({
+    // a unique name for the form
+    form: 'Login'
+})(LoginForm)
+
+// === === === ===
 
 export default Login;
