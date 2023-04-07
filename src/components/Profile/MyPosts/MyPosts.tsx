@@ -20,7 +20,7 @@ const MyPosts: React.FC<MyPostsPropsType> = ({
 
     const postsElements = posts.map(p => <Post message={p.message} likesCounter={p.likesCounter}/>)
 
-    const onSubmit = (formData: MyPostsFormPropsType) => {
+    const onSubmit = (formData: AddPostFormPropsType) => {
         console.log(formData)
         addPost(formData.textMessage)
     }
@@ -29,7 +29,7 @@ const MyPosts: React.FC<MyPostsPropsType> = ({
         <div className={s.postsBlock}>
             <h3>My posts</h3>
 
-            <ReduxAddPostPostsForm onSubmit={onSubmit}/>
+            <ReduxAddPostForm onSubmit={onSubmit}/>
 
             <div className={s.posts}>
                 {postsElements}
@@ -38,11 +38,11 @@ const MyPosts: React.FC<MyPostsPropsType> = ({
     );
 }
 
-type MyPostsFormPropsType = {
+type AddPostFormPropsType = {
     textMessage: string
 }
 
-const AddPostFormForm: React.FC<InjectedFormProps<MyPostsFormPropsType>> = ({handleSubmit}) => {
+const AddPostForm: React.FC<InjectedFormProps<AddPostFormPropsType>> = ({handleSubmit}) => {
     return <form action="" onSubmit={handleSubmit}>
         <div>
             <Field placeholder={'enter your message'}
@@ -57,6 +57,6 @@ const AddPostFormForm: React.FC<InjectedFormProps<MyPostsFormPropsType>> = ({han
     </form>
 }
 
-const ReduxAddPostPostsForm = reduxForm<MyPostsFormPropsType>({form: 'addPostForm'})(AddPostFormForm)
+const ReduxAddPostForm = reduxForm<AddPostFormPropsType>({form: 'addPostForm'})(AddPostForm)
 
 export default MyPosts;
