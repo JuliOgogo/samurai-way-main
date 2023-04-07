@@ -18,7 +18,7 @@ const MyPosts: React.FC<MyPostsPropsType> = ({
                                                  addPost,
                                              }) => {
 
-    const postsElements = posts.map(p => <Post message={p.message} likesCounter={p.likesCounter}/>)
+    const postsElements = posts.map(p => <Post key={p.id} message={p.message} likesCounter={p.likesCounter}/>)
 
     const onSubmit = (formData: AddPostFormPropsType) => {
         console.log(formData)
