@@ -15,11 +15,9 @@ export type StateType = {
 export type DialogsPageStateType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessageText: string
 }
 export type ProfilePageStateType = {
     posts: PostType[]
-    newPostText: string
     profile: UserProfileType
     status: string
 }

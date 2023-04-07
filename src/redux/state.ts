@@ -1,5 +1,5 @@
-import {addPostAC, profileReducer, updateNewPostAC} from "./profileReducer";
-import {addMessageAC, dialogsReducer, updateNewMessageAC} from "./dialogsReducer";
+import {addPost, profileReducer, updateNewPostAC} from "./profileReducer";
+import {addMessage, dialogsReducer, updateNewMessageAC} from "./dialogsReducer";
 import {sideBarReducer} from "./sideBarReducer";
 
 export let store: StoreType = {
@@ -17,7 +17,6 @@ export let store: StoreType = {
                 {id: 2, message: 'How are you?'},
                 {id: 3, message: 'Lol :D'},
             ],
-            newMessageText: ''
         },
         profilePage: {
             posts: [
@@ -56,9 +55,9 @@ export let store: StoreType = {
 
 // action creators types
 export type ActionType =
-    ReturnType<typeof addPostAC> |
+    ReturnType<typeof addPost> |
     ReturnType<typeof updateNewPostAC> |
-    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof addMessage> |
     ReturnType<typeof updateNewMessageAC>
 
 // types
@@ -77,7 +76,6 @@ export type StateType = {
 export type DialogsPageStateType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessageText: string
 }
 export type ProfilePageStateType = {
     posts: PostType[]

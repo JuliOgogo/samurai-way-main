@@ -9,7 +9,6 @@ const initialState: ProfilePageStateType = {
         {id: 2, message: 'It\'s my first post', likesCounter: 54},
         {id: 3, message: 'I\'m learning React', likesCounter: 3},
     ],
-    newPostText: '',
     profile: {
         aboutMe: null,
         contacts: {
@@ -39,14 +38,12 @@ export const profileReducer = (state: ProfilePageStateType = initialState, actio
         case ADD_POST: {
             return {
                 ...state,
-                posts: [...state.posts, {id: v1(), message: state.newPostText, likesCounter: 0}],
-                newPostText: ''
+                posts: [{id: v1(), message: action.postText, likesCounter: 0}, ...state.posts],
             }
         }
         case  UPDATE_NEW_POST: {
             return {
                 ...state,
-                newPostText: action.text
             }
         }
         case SET_USER_PROFILE: {
@@ -66,12 +63,12 @@ export const profileReducer = (state: ProfilePageStateType = initialState, actio
 }
 
 type ActionType =
-    ReturnType<typeof addPostAC> |
+    ReturnType<typeof addPost> |
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setStatus>
 
-export const addPostAC = () => ({type: ADD_POST}) as const
+export const addPost = (postText: string) => ({type: ADD_POST, postText}) as const
 export const updateNewPostAC = (text: string) => ({type: UPDATE_NEW_POST, text}) as const
 export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const

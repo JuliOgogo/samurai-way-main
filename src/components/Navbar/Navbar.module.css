@@ -1,7 +1,7 @@
 .nav {
     grid-area: nav;
     background-color: lightpink;
-    padding: 20px;
+    padding: 10px;
 }
 
 .item a {

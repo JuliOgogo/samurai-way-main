@@ -13,8 +13,7 @@ const initialState: DialogsPageStateType = {
         {id: 1, message: 'Hello!'},
         {id: 2, message: 'How are you?'},
         {id: 3, message: 'Lol :D'},
-    ],
-    newMessageText: ''
+    ]
 }
 
 export const dialogsReducer = (state: DialogsPageStateType = initialState, action: ActionType): DialogsPageStateType => {
@@ -22,14 +21,12 @@ export const dialogsReducer = (state: DialogsPageStateType = initialState, actio
         case ADD_MESSAGE: {
             return {
                 ...state,
-                messages: [...state.messages, {id: v1(), message: state.newMessageText}],
-                newMessageText: ''
+                messages: [...state.messages, {id: v1(), message: action.message}],
             }
         }
         case UPDATE_NEW_MESSAGE: {
             return {
                 ...state,
-                newMessageText: action.text
             }
         }
         default:
@@ -38,10 +35,10 @@ export const dialogsReducer = (state: DialogsPageStateType = initialState, actio
 }
 
 type ActionType =
-    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof addMessage> |
     ReturnType<typeof updateNewMessageAC>
 
-export const addMessageAC = () => ({type: ADD_MESSAGE}) as const
+export const addMessage = (message: string) => ({type: ADD_MESSAGE, message}) as const
 export const updateNewMessageAC = (text: string) => ({type: UPDATE_NEW_MESSAGE, text}) as const
 
 const ADD_MESSAGE = 'ADD-MESSAGE'

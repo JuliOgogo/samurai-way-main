@@ -1,23 +1,24 @@
 import React from 'react';
-import {addPostAC, updateNewPostAC} from "../../../redux/profileReducer";
+import {addPost} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/types";
-import {AppDispatchType} from "../../../redux/redux-store";
+import {AppRootStateType} from "../../../redux/redux-store";
+import {PostType} from "../../../redux/types";
 
-export type MyPostsContainerPropsType = {}
+type MapStateToPropsType = {
+    posts: PostType[]
+}
 
-const mapStateToProps = (state: StateType) => {
+type MapDispatchToPropsType = {
+    addPost: (post: string) => void
+}
+
+export type MyPostsContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
-    }
-}
-const mapDispatchToProps = (dispatch: AppDispatchType) => {
-    return {
-        addPost: () => dispatch(addPostAC()),
-        updateNewPost: (text: string) => dispatch(updateNewPostAC(text))
     }
 }
 
-export const MyPostsContainer: React.FC<MyPostsContainerPropsType> = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+export const MyPostsContainer = connect(mapStateToProps, {addPost})(MyPosts)
