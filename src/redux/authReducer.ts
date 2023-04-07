@@ -1,5 +1,6 @@
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {AppThunkType} from "./redux-store";
 
 export type InitialStateType = {
     id: number | null
@@ -15,30 +16,49 @@ const initialState: InitialStateType = {
     isAuth: false
 }
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
         case SET_AUTH_USER_DATA: {
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
         }
-        default: return state
+        default:
+            return state
     }
 }
 
-export const setAuthUserData = (id: number, email: string, login: string) => ({type: SET_AUTH_USER_DATA, data: {id, email, login}}) as const
+export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+    type: SET_AUTH_USER_DATA,
+    data: {id, email, login, isAuth}
+}) as const
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
         if (res.data.resultCode === 0) {
             let {id, email, login} = res.data.data
-            dispatch(setAuthUserData(id, email, login))
+            dispatch(setAuthUserData(id, email, login, true))
         }
     })
 }
 
-type ActionType = ReturnType<typeof setAuthUserData>
+export const login = (email: string, password: string, rememberMe: boolean): AppThunkType => (dispatch) => {
+    authAPI.login(email, password, rememberMe).then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(getAuthUserData())
+        }
+    })
+}
+
+export const logout = (): AppThunkType => (dispatch) => {
+    authAPI.logout().then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false))
+        }
+    })
+}
+
+export type AuthActionType = ReturnType<typeof setAuthUserData>
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
