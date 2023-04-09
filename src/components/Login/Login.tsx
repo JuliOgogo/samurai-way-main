@@ -32,9 +32,10 @@ type LoginFormPropsType = {
     login: string
     password: string
     rememberMe: boolean
+    error: string
 }
 
-const LoginForm: React.FC<InjectedFormProps<LoginFormPropsType>> = ({handleSubmit}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormPropsType>> = ({handleSubmit, error}) => {
     return <form action="" onSubmit={handleSubmit}>
         <div>
             <Field placeholder={'Login'}
@@ -58,6 +59,9 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormPropsType>> = ({handleSubmi
         <div>
             <button>Login</button>
         </div>
+        {error && <div className={s.formError}>
+            {error}
+        </div>}
     </form>
 }
 

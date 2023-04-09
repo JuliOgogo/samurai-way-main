@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type InitialStateType = {
     id: number | null
@@ -47,6 +48,9 @@ export const login = (email: string, password: string, rememberMe: boolean): App
     authAPI.login(email, password, rememberMe).then(res => {
         if (res.data.resultCode === 0) {
             dispatch(getAuthUserData())
+        } else {
+            const error = res.data.messages.length > 0 ? res.data.messages[0] : 'Something is wrong'
+            dispatch(stopSubmit('Login', {_error: error}))
         }
     })
 }

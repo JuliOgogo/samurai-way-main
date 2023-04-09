@@ -1,2 +1,6 @@
 .login {
 }
+
+.formError {
+    color: red;
+}
