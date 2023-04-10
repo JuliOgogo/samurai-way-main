@@ -11,12 +11,32 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import {FriendsContainer} from "./components/Friends/FriendsContainer";
 import LoginPage from "./components/Login/Login";
+import {connect} from "react-redux";
+import {initialize} from "./redux/appReducer";
+import {AppRootStateType} from "./redux/redux-store";
+import {Preloader} from "./components/common/Preloader/Preloader";
 
-export type AppPropsType = {}
+type MapStateToPropsType = {
+    initialized: boolean
+}
 
-const App: React.FC<AppPropsType> = () => {
-    return (
-        <div className="app-wrapper">
+type MapDispatchToPropsType = {
+    initialize: () => void
+}
+
+export type AppPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+class App extends React.Component<AppPropsType> {
+    componentDidMount() {
+        this.props.initialize()
+    }
+
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        } else
+
+        return <div className="app-wrapper">
             <HeaderContainer/>
             <Navbar/>
             <div className="app-wrapper-content">
@@ -31,7 +51,13 @@ const App: React.FC<AppPropsType> = () => {
                 <Route path='/login' render={() => <LoginPage/>}/>
             </div>
         </div>
-    );
+    }
 }
 
-export default App;
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
+export default connect(mapStateToProps, {initialize})(App);
