@@ -1,8 +1,13 @@
 import {AppRootStateType} from "./redux-store";
+import {createSelector} from "reselect";
 
-export const getUsersSelector = (state: AppRootStateType) => {
+const getUsersSimpleSelector = (state: AppRootStateType) => {
     return state.usersPage.users
 }
+
+export const getUsersSelector = createSelector(getUsersSimpleSelector,(users) => {
+    return users.filter(u => true)
+})
 
 export const getTotalUsersCount = (state: AppRootStateType) => {
     return state.usersPage.totalUsersCount
