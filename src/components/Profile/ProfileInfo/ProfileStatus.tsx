@@ -1,57 +1,40 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 
 export type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
-    state = {
-        editMode: false,
-        status: this.props.status
+export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({status, updateStatus}) => {
+
+    const [value, setValue] = useState(status)
+    const [editMode, setEditMode] = useState(false)
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
     }
 
-    changeEditMode = (value: boolean) => {
-        this.setState({editMode: value})
-        // setState асинхронная ф-ция!
-        this.props.updateStatus(this.state.status)
+    const onBlurHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setEditMode(false)
+        updateStatus(value)
     }
 
-    onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({status: e.currentTarget.value})
-    }
+    return <div>
 
-    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{status: string}>, snapshot?: any) {
-        // console.log('componentDidUpdate')
-        // console.log(prevProps)
-        // console.log(prevState)
-        if (prevProps.status !== this.props.status) {
-            this.setState({status: this.props.status})
+        {editMode ?
+            <div>
+                <input type="text" value={value}
+                       onChange={onChangeHandler}
+                       onBlur={onBlurHandler}
+                       autoFocus={true}/>
+            </div>
+            :
+            <div>
+                    <span onDoubleClick={() => {
+                        setEditMode(true)
+                    }}>{status || 'no status'}</span>
+            </div>
         }
 
-    }
-
-    render() {
-
-        // console.log('render')
-
-        return <div>
-
-            {this.state.editMode ?
-                <div>
-                    <input type="text" value={this.state.status}
-                           onChange={this.onChangeHandler}
-                           onBlur={() => this.changeEditMode(false)}
-                           autoFocus={true}/>
-                </div>
-                :
-                <div>
-                    <span onDoubleClick={() => {
-                        this.changeEditMode(true)
-                    }}>{this.props.status || 'no status'}</span>
-                </div>
-            }
-
-        </div>
-    }
+    </div>
 }
