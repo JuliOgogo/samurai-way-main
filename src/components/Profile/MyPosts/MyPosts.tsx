@@ -13,29 +13,38 @@ export type MyPostsPropsType = {
 
 const validateMaxLength = validateMaxLengthCreator(10)
 
-const MyPosts: React.FC<MyPostsPropsType> = ({
-                                                 posts,
-                                                 addPost,
-                                             }) => {
-
-    const postsElements = posts.map(p => <Post key={p.id} message={p.message} likesCounter={p.likesCounter}/>)
-
-    const onSubmit = (formData: AddPostFormPropsType) => {
-        console.log(formData)
-        addPost(formData.textMessage)
+class MyPosts extends React.Component<MyPostsPropsType> {
+    shouldComponentUpdate(nextProps: Readonly<MyPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+        return nextProps !== this.props || nextState !== this.state
     }
 
-    return (
-        <div className={s.postsBlock}>
-            <h3>My posts</h3>
+    render() {
+        let {
+            posts,
+            addPost,
+        } = this.props;
 
-            <ReduxAddPostForm onSubmit={onSubmit}/>
+        console.log('render my posts')
 
-            <div className={s.posts}>
-                {postsElements}
+        const postsElements = posts.map(p => <Post key={p.id} message={p.message} likesCounter={p.likesCounter}/>)
+
+        const onSubmit = (formData: AddPostFormPropsType) => {
+            console.log(formData)
+            addPost(formData.textMessage)
+        }
+
+        return (
+            <div className={s.postsBlock}>
+                <h3>My posts</h3>
+
+                <ReduxAddPostForm onSubmit={onSubmit}/>
+
+                <div className={s.posts}>
+                    {postsElements}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 type AddPostFormPropsType = {
