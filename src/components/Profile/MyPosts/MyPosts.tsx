@@ -13,10 +13,11 @@ export type MyPostsPropsType = {
 
 const validateMaxLength = validateMaxLengthCreator(10)
 
-class MyPosts extends React.Component<MyPostsPropsType> {
-    shouldComponentUpdate(nextProps: Readonly<MyPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+class MyPosts extends React.PureComponent<MyPostsPropsType> {
+
+    /*shouldComponentUpdate(nextProps: Readonly<MyPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
         return nextProps !== this.props || nextState !== this.state
-    }
+    }*/
 
     render() {
         let {
