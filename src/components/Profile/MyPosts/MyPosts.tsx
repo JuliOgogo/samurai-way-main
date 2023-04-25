@@ -13,40 +13,33 @@ export type MyPostsPropsType = {
 
 const validateMaxLength = validateMaxLengthCreator(10)
 
-class MyPosts extends React.PureComponent<MyPostsPropsType> {
+const MyPosts: React.FC<MyPostsPropsType> = React.memo(({
+                                                            posts,
+                                                            addPost
+                                                        }) => {
 
-    /*shouldComponentUpdate(nextProps: Readonly<MyPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
-        return nextProps !== this.props || nextState !== this.state
-    }*/
 
-    render() {
-        let {
-            posts,
-            addPost,
-        } = this.props;
+    console.log('render my posts')
 
-        console.log('render my posts')
+    const postsElements = posts.map(p => <Post key={p.id} message={p.message} likesCounter={p.likesCounter}/>)
 
-        const postsElements = posts.map(p => <Post key={p.id} message={p.message} likesCounter={p.likesCounter}/>)
-
-        const onSubmit = (formData: AddPostFormPropsType) => {
-            console.log(formData)
-            addPost(formData.textMessage)
-        }
-
-        return (
-            <div className={s.postsBlock}>
-                <h3>My posts</h3>
-
-                <ReduxAddPostForm onSubmit={onSubmit}/>
-
-                <div className={s.posts}>
-                    {postsElements}
-                </div>
-            </div>
-        );
+    const onSubmit = (formData: AddPostFormPropsType) => {
+        console.log(formData)
+        addPost(formData.textMessage)
     }
-}
+
+    return (
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
+
+            <ReduxAddPostForm onSubmit={onSubmit}/>
+
+            <div className={s.posts}>
+                {postsElements}
+            </div>
+        </div>
+    );
+})
 
 type AddPostFormPropsType = {
     textMessage: string
