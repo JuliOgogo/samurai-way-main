@@ -1,12 +1,12 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import {dialogsReducer} from "./dialogsReducer";
-import {profileReducer} from "./profileReducer";
-import {sideBarReducer} from "./sideBarReducer";
-import {usersReducer} from "./usersReducer";
-import {AuthActionType, authReducer} from "./authReducer";
-import thunk, {ThunkAction} from "redux-thunk";
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
+import {dialogsReducer} from './dialogsReducer';
+import {profileReducer} from './profileReducer';
+import {sideBarReducer} from './sideBarReducer';
+import {usersReducer} from './usersReducer';
+import {AuthActionType, authReducer} from './authReducer';
+import thunk, {ThunkAction} from 'redux-thunk';
 import {FormAction, reducer as formReducer} from 'redux-form';
-import {AppActionType, appReducer} from "./appReducer";
+import {AppActionType, appReducer} from './appReducer';
 
 const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,

@@ -1,5 +1,5 @@
-import {DialogsPageStateType} from "./types";
-import {v1} from "uuid";
+import {DialogsPageStateType} from './types';
+import {v1} from 'uuid';
 
 const initialState: DialogsPageStateType = {
     dialogs: [
@@ -41,5 +41,5 @@ type ActionType =
 export const addMessage = (message: string) => ({type: ADD_MESSAGE, message}) as const
 export const updateNewMessageAC = (text: string) => ({type: UPDATE_NEW_MESSAGE, text}) as const
 
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
+const ADD_MESSAGE = 'dialogs/ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE = 'dialogs/UPDATE-NEW-MESSAGE'

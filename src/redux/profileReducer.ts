@@ -81,28 +81,25 @@ export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PRO
 export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
 export const deletePost = (id: string | number) => ({type: DELETE_POST, id}) as const
 
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId).then(res => {
-        dispatch(setUserProfile(res.data))
-    })
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+    const res = await usersAPI.getProfile(userId)
+    dispatch(setUserProfile(res.data))
 }
 
-export const getStatus = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId).then(res => {
-        dispatch(setStatus(res.data))
-    })
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setStatus(res.data))
 }
 
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status).then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(setStatus(status))
-        }
-    })
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.updateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 }
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
-const SET_STATUS = 'SET_STATUS'
-const DELETE_POST = 'DELETE-POST'
+const ADD_POST = 'profile/ADD-POST'
+const UPDATE_NEW_POST = 'profile/UPDATE-NEW-POST'
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
+const SET_STATUS = 'profile/SET_STATUS'
+const DELETE_POST = 'profile/DELETE-POST'

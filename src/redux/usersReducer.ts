@@ -1,6 +1,6 @@
-import {UsersPageStateType, UserType} from "./types";
-import {usersAPI} from "../api/api";
-import {Dispatch} from "redux";
+import {UsersPageStateType, UserType} from './types';
+import {usersAPI} from '../api/api';
+import {Dispatch} from 'redux';
 
 const initialState: UsersPageStateType = {
     users: [
@@ -107,40 +107,43 @@ export const setFollowUnfollowInProgress = (value: boolean, id: number) => ({
     id
 }) as const
 
-export const getUsers = (page: number, pageSize: number) => (dispatch: Dispatch) => {
+export const getUsers = (page: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(page))
-    usersAPI.getUsers(page, pageSize).then(data => {
-        dispatch(toggleIsFetching(false))
-        dispatch(setUsers(data.items))
-        dispatch(setTotalCount(data.totalCount))
-    })
+
+    const data = await usersAPI.getUsers(page, pageSize)
+
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalCount(data.totalCount))
 }
 
-export const follow = (userID: number) => (dispatch: Dispatch) => {
+export const follow = (userID: number) => async (dispatch: Dispatch) => {
     dispatch(setFollowUnfollowInProgress(true, userID))
-    usersAPI.follow(userID).then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(followSuccess(userID))
-        }
-        dispatch(setFollowUnfollowInProgress(false, userID))
-    })
+
+    const res = await usersAPI.follow(userID)
+
+    if (res.data.resultCode === 0) {
+        dispatch(followSuccess(userID))
+    }
+    dispatch(setFollowUnfollowInProgress(false, userID))
 }
 
-export const unfollow = (userID: number) => (dispatch: Dispatch) => {
+export const unfollow = (userID: number) => async (dispatch: Dispatch) => {
     dispatch(setFollowUnfollowInProgress(true, userID))
-    usersAPI.unfollow(userID).then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(unFollowSuccess(userID))
-        }
-        dispatch(setFollowUnfollowInProgress(false, userID))
-    })
+
+    const res = await usersAPI.unfollow(userID)
+
+    if (res.data.resultCode === 0) {
+        dispatch(unFollowSuccess(userID))
+    }
+    dispatch(setFollowUnfollowInProgress(false, userID))
 }
 
-const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS'
-const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS'
-const SET_USERS = 'SET_USERS'
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const SET_FOLLOW_UNFOLLOW_IN_PROGRESS = 'SET_FOLLOW_UNFOLLOW_IN_PROGRESS'
+const FOLLOW_SUCCESS = 'users/FOLLOW_SUCCESS'
+const UNFOLLOW_SUCCESS = 'users/UNFOLLOW_SUCCESS'
+const SET_USERS = 'users/SET_USERS'
+const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE'
+const SET_TOTAL_COUNT = 'users/SET_TOTAL_COUNT'
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING'
+const SET_FOLLOW_UNFOLLOW_IN_PROGRESS = 'users/SET_FOLLOW_UNFOLLOW_IN_PROGRESS'

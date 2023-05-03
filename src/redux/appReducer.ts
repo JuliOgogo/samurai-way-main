@@ -1,5 +1,5 @@
-import {AppThunkType} from "./redux-store";
-import {getAuthUserData} from "./authReducer";
+import {AppThunkType} from './redux-store';
+import {getAuthUserData} from './authReducer';
 
 export type InitialStateType = {
     initialized: boolean
@@ -34,4 +34,4 @@ export const initialize = (): AppThunkType => (dispatch) => {
 
 export type AppActionType = ReturnType<typeof setInitializedSuccess>
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
+const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS'
