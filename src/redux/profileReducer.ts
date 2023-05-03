@@ -1,7 +1,7 @@
-import {ProfilePageStateType, UserProfileType} from "./types";
-import {v1} from "uuid";
-import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
+import {ProfilePageStateType, UserProfileType} from './types';
+import {v1} from 'uuid';
+import {Dispatch} from 'redux';
+import {profileAPI, usersAPI} from '../api/api';
 
 const initialState: ProfilePageStateType = {
     posts: [
@@ -57,6 +57,12 @@ export const profileReducer = (state: ProfilePageStateType = initialState, actio
                 status: action.status
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.id)
+            }
+        }
         default:
             return state
     }
@@ -66,12 +72,14 @@ type ActionType =
     ReturnType<typeof addPost> |
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof setUserProfile> |
-    ReturnType<typeof setStatus>
+    ReturnType<typeof setStatus> |
+    ReturnType<typeof deletePost>
 
 export const addPost = (postText: string) => ({type: ADD_POST, postText}) as const
 export const updateNewPostAC = (text: string) => ({type: UPDATE_NEW_POST, text}) as const
 export const setUserProfile = (profile: UserProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
+export const deletePost = (id: string | number) => ({type: DELETE_POST, id}) as const
 
 export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId).then(res => {
@@ -97,3 +105,4 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
+const DELETE_POST = 'DELETE-POST'
