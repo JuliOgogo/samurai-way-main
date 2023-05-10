@@ -1,18 +1,18 @@
-import React from "react";
-import {connect} from "react-redux";
-import {UserType} from "../../redux/types";
-import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/usersReducer";
-import {Users} from "./Users";
-import {Preloader} from "../common/Preloader/Preloader";
-import {AppRootStateType} from "../../redux/redux-store";
-import {compose} from "redux";
+import React from 'react';
+import {connect} from 'react-redux';
+import {UserType} from '../../redux/types';
+import {follow, getUsers, setCurrentPage, unfollow} from '../../redux/usersReducer';
+import {Users} from './Users';
+import {Preloader} from '../common/Preloader/Preloader';
+import {AppRootStateType} from '../../redux/redux-store';
+import {compose} from 'redux';
 import {
     getCurrentPage, getFollowUnfollowInProgress,
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
     getUsersSelector
-} from "../../redux/usersSelectors";
+} from '../../redux/usersSelectors';
 
 type MapStateToPropsType = {
     users: UserType[]

@@ -12,36 +12,34 @@ export type UserPropsType = {
 }
 
 export const User: React.FC<UserPropsType> = ({user, followUnfollowInProgress, unfollow, follow}) => {
-    const u = user
-
-    return <div key={u.id} className={s.user}>
+    return <div key={user.id} className={s.user}>
 
         <div className={s.AvatarAndButton}>
-            <NavLink to={`/profile/${u.id}`}>
-                <img className={s.avatar} src={u.photos.small === null ? userPhoto : u.photos.small} alt="user photo"/>
+            <NavLink to={`/profile/${user.id}`}>
+                <img className={s.avatar} src={user.photos.small === null ? userPhoto : user.photos.small} alt="user photo"/>
             </NavLink>
             {
-                u.followed ?
+                user.followed ?
 
                     <button onClick={() => {
-                        unfollow(u.id)
+                        unfollow(user.id)
                     }}
-                            disabled={followUnfollowInProgress.some(id => id === u.id)}>Unfollow</button> :
+                            disabled={followUnfollowInProgress.some(id => id === user.id)}>Unfollow</button> :
 
                     <button onClick={() => {
-                        follow(u.id)
+                        follow(user.id)
                     }}
-                            disabled={followUnfollowInProgress.some(id => id === u.id)}>Follow</button>
+                            disabled={followUnfollowInProgress.some(id => id === user.id)}>Follow</button>
             }
         </div>
         <div className={s.body}>
             <div className={s.NameAndStatus}>
-                <div>{u.name}</div>
-                <div>{u.status}</div>
+                <div>{user.name}</div>
+                <div>{user.status}</div>
             </div>
             <div className={s.location}>
-                <div>{'u.location.city'}</div>
-                <div>{'u.location.country'}</div>
+                <div>{'user.location.city'}</div>
+                <div>{'user.location.country'}</div>
             </div>
         </div>
     </div>
