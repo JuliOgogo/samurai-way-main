@@ -1,6 +1,7 @@
 import {UsersPageStateType, UserType} from './types';
 import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
+import {objectsHelper} from '../utils/objectsHelper';
 
 const initialState: UsersPageStateType = {
     users: [
@@ -41,13 +42,17 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
         case FOLLOW_SUCCESS: {
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
+                users: objectsHelper(state.users, action.userId, 'id', {followed: true})
+
+                /*users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)*/
             }
         }
         case UNFOLLOW_SUCCESS: {
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
+                users: objectsHelper(state.users, action.userId, 'id', {followed: false})
+
+                /*users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)*/
             }
         }
         case SET_USERS: {
