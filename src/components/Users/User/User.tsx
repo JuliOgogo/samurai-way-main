@@ -16,7 +16,7 @@ export const User: React.FC<UserPropsType> = ({user, followUnfollowInProgress, u
 
         <div className={s.AvatarAndButton}>
             <NavLink to={`/profile/${user.id}`}>
-                <img className={s.avatar} src={user.photos.small === null ? userPhoto : user.photos.small} alt="user photo"/>
+                <img className={s.avatar} src={user.photos.small === null ? userPhoto : user.photos.small} alt='user photo'/>
             </NavLink>
             {
                 user.followed ?

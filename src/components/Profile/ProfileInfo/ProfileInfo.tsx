@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import s from './ProfileInfo.module.css';
-import {UserProfileType} from "../../../redux/types";
-import {Preloader} from "../../common/Preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
+import {UserProfileType} from '../../../redux/types';
+import {Preloader} from '../../common/Preloader/Preloader';
+import {ProfileStatus} from './ProfileStatus';
 
 export type ProfileInfoPropsType = {
     profile: UserProfileType
@@ -10,9 +10,9 @@ export type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
 }
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
 
-    if (props.profile === null) {
+    if (profile === null) {
         return <Preloader/>
     }
 
@@ -20,12 +20,12 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
         <div className={s.photoAndName}>
             <img className={s.photo}
-                 src={props.profile.photos.small ? props.profile.photos.small : 'https://thypix.com/wp-content/uploads/2021/10/anime-avatar-profile-picture-thypix-55-700x700.jpg'}
-                 alt="avatar"/>
+                 src={profile.photos.small ? profile.photos.small : 'https://thypix.com/wp-content/uploads/2021/10/anime-avatar-profile-picture-thypix-55-700x700.jpg'}
+                 alt='avatar'/>
             <div className={s.name}>
-                {props.profile.fullName}
+                {profile.fullName}
             </div>
-            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileStatus status={status} updateStatus={updateStatus}/>
         </div>
 
         <div className={s.description}>
