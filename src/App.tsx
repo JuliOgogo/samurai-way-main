@@ -1,20 +1,20 @@
 import React from 'react';
 import './App.css';
-import Navbar from "./components/Navbar/Navbar";
-import {Route} from "react-router-dom";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import {FriendsContainer} from "./components/Friends/FriendsContainer";
-import LoginPage from "./components/Login/Login";
-import {connect} from "react-redux";
-import {initialize} from "./redux/appReducer";
-import {AppRootStateType} from "./redux/redux-store";
-import {Preloader} from "./components/common/Preloader/Preloader";
+import Navbar from './components/Navbar/Navbar';
+import {Route} from 'react-router-dom';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
+import HeaderContainer from './components/Header/HeaderContainer';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import UsersContainer from './components/Users/UsersContainer';
+import {FriendsContainer} from './components/Friends/FriendsContainer';
+import LoginPage from './components/Login/Login';
+import {connect} from 'react-redux';
+import {initialize} from './redux/appReducer';
+import {AppRootStateType} from './redux/redux-store';
+import {Preloader} from './components/common/Preloader/Preloader';
 
 type MapStateToPropsType = {
     initialized: boolean

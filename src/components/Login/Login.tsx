@@ -1,12 +1,12 @@
 import React from 'react';
 import s from './Login.module.css';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {required} from "../../utils/validators/validators";
-import {Input} from "../common/FormsControls/FormsControls";
-import {connect} from "react-redux";
-import {login} from "../../redux/authReducer";
-import {Redirect} from "react-router-dom";
-import {AppRootStateType} from "../../redux/redux-store";
+import {InjectedFormProps, reduxForm} from 'redux-form';
+import {required} from '../../utils/validators/validators';
+import {createField, Input} from '../common/FormsControls/FormsControls';
+import {connect} from 'react-redux';
+import {login} from '../../redux/authReducer';
+import {Redirect} from 'react-router-dom';
+import {AppRootStateType} from '../../redux/redux-store';
 
 // === Login page ===
 
@@ -37,25 +37,11 @@ type LoginFormPropsType = {
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormPropsType>> = ({handleSubmit, error}) => {
     return <form action="" onSubmit={handleSubmit}>
-        <div>
-            <Field placeholder={'Login'}
-                   name={'login'}
-                   component={Input}
-                   validate={[required]}/>
-        </div>
-        <div>
-            <Field placeholder={'Password'}
-                   type={'password'}
-                   name={'password'}
-                   component={Input}
-                   validate={[required]}/>
-        </div>
-        <div>
-            <Field type={"checkbox"}
-                   name={'rememberMe'}
-                   component={Input}
-                   validate={[]}/> Remember me
-        </div>
+
+        {createField('Login', 'login', Input, [required])}
+        {createField('Password', 'password', Input, [required], {type: 'password'})}
+        {createField(null, 'rememberMe', Input, [], {type: 'checkbox'}, 'Remember me')}
+
         <div>
             <button>Login</button>
         </div>
