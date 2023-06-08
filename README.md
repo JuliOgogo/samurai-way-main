@@ -24,7 +24,7 @@
   <li> редактирование профиля / profile editing </li>
   <li> добавление фото / adding photos </li>
   <li> добавление/изменение статуса пользователя / adding/changing user status </li>
-  <li> оправление сообщений / sending messages </li>
+  <li> отправление сообщений / sending messages </li>
   <li> добавление новых постов на стену / adding new posts to the wall </li>
   <li> подписка/отписка на других пользователей / subscribing/unsubscribing to other users </li>
 </ul>
